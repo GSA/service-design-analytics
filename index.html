@@ -1,0 +1,2213 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="lte-ie8" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--><html lang="en"><!--<![endif]-->
+
+<!-- PLEASE NOTE: This is a terribly-hurried proof-of-concept stolen directly from gov.uk's Performance Platform.
+     It is under active development and will be rapidly updating. -->
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+    <title>Dashboard - Applications for VA Health Care</title>
+
+    <script type="text/javascript">
+      (function(){if(navigator.userAgent.match(/IEMobile\/10\.0/)){var d=document,c="appendChild",a=d.createElement("style");a[c](d.createTextNode("@-ms-viewport{width:auto!important}"));d.getElementsByTagName("head")[0][c](a);}})();
+    </script>
+
+    <!--[if gt IE 8]><!--><link href="https://assets.publishing.service.gov.uk/spotlight/stylesheets/govuk-template.css?0.12.0" media="screen" rel="stylesheet" type="text/css" /><!--<![endif]-->
+    <!--[if IE 6]><link href="https://assets.publishing.service.gov.uk/spotlight/stylesheets/govuk-template-ie6.css?0.12.0" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
+    <!--[if IE 7]><link href="https://assets.publishing.service.gov.uk/spotlight/stylesheets/govuk-template-ie7.css?0.12.0" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
+    <!--[if IE 8]><link href="https://assets.publishing.service.gov.uk/spotlight/stylesheets/govuk-template-ie8.css?0.12.0" media="screen" rel="stylesheet" type="text/css" /><![endif]-->
+
+    <link href="https://assets.publishing.service.gov.uk/spotlight/stylesheets/govuk-template-print.css?0.12.0" media="print" rel="stylesheet" type="text/css" />
+
+    <!--[if IE 8]>
+    <script type="text/javascript">
+      (function(){if(window.opera){return;}
+       setTimeout(function(){var a=document,g,b={families:(g=
+       ["nta"]),urls:["https://assets.publishing.service.gov.uk/spotlight/stylesheets/fonts-ie8.css?0.12.0"]},
+       c="https://assets.publishing.service.gov.uk/spotlight/javascripts/vendor/goog/webfont-debug.js?0.12.0",d="script",
+       e=a.createElement(d),f=a.getElementsByTagName(d)[0],h=g.length;WebFontConfig
+       ={custom:b},e.src=c,f.parentNode.insertBefore(e,f);for(;h=h-1;a.documentElement
+       .className+=' wf-'+g[h].replace(/\s/g,'').toLowerCase()+'-n4-loading');},0)
+      })()
+    </script>
+    <![endif]-->
+    <!--[if gte IE 9]><!-->
+      <link href="https://assets.publishing.service.gov.uk/spotlight/stylesheets/fonts.css?0.12.0" media="all" rel="stylesheet" type="text/css" />
+    <!--<![endif]-->
+
+
+    <!--[if lt IE 9]>
+      <script src="https://assets.publishing.service.gov.uk/spotlight/javascripts/ie.js?0.12.0" type="text/javascript"></script>
+    <![endif]-->
+
+    <link rel="shortcut icon" href="assets/img/favicon-16.png" type="image/x-icon" />
+
+    <!-- Size for iPad and iPad mini (high resolution) -->
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="https://assets.publishing.service.gov.uk/spotlight/images/apple-touch-icon-152x152.png?0.12.0">
+    <!-- Size for iPhone and iPod touch (high resolution) -->
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="https://assets.publishing.service.gov.uk/spotlight/images/apple-touch-icon-120x120.png?0.12.0">
+    <!-- Size for iPad 2 and iPad mini (standard resolution) -->
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="https://assets.publishing.service.gov.uk/spotlight/images/apple-touch-icon-76x76.png?0.12.0">
+    <!-- Default non-defined size, also used for Android 2.1+ devices -->
+    <link rel="apple-touch-icon-precomposed" href="https://assets.publishing.service.gov.uk/spotlight/images/apple-touch-icon-60x60.png?0.12.0">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:image" content="#">
+
+    <link href="https://assets.publishing.service.gov.uk/spotlight/stylesheets/spotlight-89feb63e64a18da8618f80a3bbe8ed3b.css" media="all" rel="stylesheet" type="text/css">
+
+    <link href="css/uswds.css" media="all" rel="stylesheet" type="text/css">
+
+<meta name="description" content="View performance statistics for the 'VA Health Care Applications' service from the Performance Platform on USA.gov">
+
+<!-- <script async defer src="https://assets.publishing.service.gov.uk/spotlight/javascripts/analytics-cf0891e47d22c577d4ba61fba16a952a.js"></script> -->
+
+  </head>
+  <style>
+    a {color:#0071bc}
+    h1,h2 {}
+    h2 {font-size:2.5rem}
+    h2 a{text-decoration:none!important;color:#212121!important}
+    .pull-right {float:right;padding-top:3px}
+    .change.impact-number.decrease {color:#e31c3d}
+    .impact-number, .impact-number strong {color:#02bfe7}
+    /* This is horrendous and for this demo only */
+    #completion-rate > div > div.visualisation-inner > div > div.graph.timeseries-graph.volumetrics-completion > figure > div > svg > g > g > g > path {stroke:#02bfe7!important}
+    #live-service-usage div.visualisation-inner > div.sparkline figure path {stroke:#02bfe7!important}
+    #vehicle-licensing-tax-disc div.graph.timeseries-graph.volumetrics-completion path {stroke:#02bfe7!important}
+    #user-satisfaction > div > div.visualisation-inner > div > div.graph.timeseries-graph.volumetrics-completion > figure > div > svg > g > g > g > path {stroke:#02bfe7!important}
+    #service-availability > div > div.visualisation-inner > div.sparkline > div > figure > div > svg > g > g > g > path {stroke:#02bfe7!important}
+    #global-header-bar > div > div {display:none}
+    /*#volumetrics > div > div.visualisation-inner > div > figure > div > svg > g > g:nth-child(5) > g:nth-child(1) > path {stroke:#046b99}
+    #volumetrics figure.graph .not-selected.stack.group0 {stroke:#9bdaf1}
+    #volumetrics > div > div.visualisation-inner > div > figure > div > svg > g > g:nth-child(6) > g:nth-child(1) > path {fill:#205493}
+    #volumetrics > div > div.visualisation-inner > div > figure > div > svg > g > g:nth-child(5) > g:nth-child(2) > path {stroke:#046b99}*/
+    .usa-footer-slim-logo-heading {margin-top:0px!important;padding-top:0px!important}
+    /* CHART STYLE OVERRIDES*/
+    /*figure.graph .line {stroke:#fdb81e!important;z-index: 1}*/
+    /*figure.graph .line.group0, figure.graph .compare-group, figure.graph .not-selected.line.group0 {stroke:#fdb81e}*/
+    /*figure.graph .line.group1 {stroke:#e31c3d}*/
+    /*figure.graph .line.group2 {stroke:#097F96}*/
+    /*figure.graph .line.group3 {stroke:#097F96}
+    figure.graph .line.group4 {stroke:#097F96}*/
+    /*figure.graph .stack.group0 {fill:#fdb81e}*/
+    /*figure.graph .not-selected.line.group0 {stroke:#e31c3d}*/
+
+  </style>
+  <body class="">
+    <script type="text/javascript">document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
+    <!-- Gov banner BEGIN -->
+    <div class="usa-banner">
+      <div class="usa-accordion">
+        <header class="usa-banner-header">
+          <div class="usa-grid usa-banner-inner">
+          <img src="assets/img/favicon-57.png" alt="U.S. flag">
+          <p>An official website of the United States government</p>
+          <button class="usa-accordion-button usa-banner-button"
+            aria-expanded="false" aria-controls="gov-banner">
+            <span class="usa-banner-button-text">Here's how you know</span>
+          </button>
+          <span class="pull-right">This site is a proof-of-concept.
+            <button class="usa-accordion-button usa-banner-button"
+              aria-expanded="false" aria-controls="gov-banner">
+              <span class="usa-banner-button-text">Learn more</span>
+            </button>
+          </span>
+          </div>
+        </header>
+        <div class="usa-banner-content usa-accordion-content" id="gov-banner">
+          <div class="usa-grid">
+          <div class="usa-banner-guidance-gov usa-width-one-half">
+            <img class="usa-banner-icon usa-media_block-img" src="assets/img/icon-dot-gov.svg" alt="Dot gov">
+            <div class="usa-media_block-body">
+              <p>
+                <strong>The .gov means it’s official.</strong>
+                <br>
+                Federal government websites always use a .gov or .mil domain. Before sharing sensitive information online, make sure you’re on a .gov or .mil site by inspecting your browser’s address (or “location”) bar.
+              </p>
+            </div>
+          </div>
+          <div class="usa-banner-guidance-ssl usa-width-one-half">
+            <img class="usa-banner-icon usa-media_block-img" src="assets/img/icon-https.svg" alt="SSL">
+            <div class="usa-media_block-body">
+              <p>This site is also protected by an SSL (Secure Sockets Layer) certificate that’s been signed by the U.S. government. The <strong>https://</strong> means all transmitted data is encrypted  — in other words, any information or browsing history that you provide is transmitted securely.</p>
+            </div>
+          </div>
+        </div>
+        <div class="usa-grid">
+          <div class="usa-banner-guidance-ssl usa-width-one-half">
+            <img class="usa-banner-icon usa-media_block-img" src="assets/img/icon-https.svg" alt="SSL">
+            <div class="usa-media_block-body">
+              <p>This site is also protected by an SSL (Secure Sockets Layer) certificate that’s been signed by the U.S. government. The <strong>https://</strong> means all transmitted data is encrypted  — in other words, any information or browsing history that you provide is transmitted securely.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <!-- Gov banner END -->
+
+
+    <div id="skiplink-container">
+      <div>
+        <a href="#content" class="skiplink">Skip to main content</a>
+      </div>
+    </div>
+
+    <!-- <div id="global-cookie-message">
+      <div class="outer-block">
+        <div class="inner-block">
+            <p>GOV.UK uses cookies to make the site simpler. <a href="/help/cookies">Find out more about cookies</a></p>
+        </div>
+      </div>
+    </div>
+    <!--end global-cookie-message-->
+
+    <!-- <header role="banner" id="global-header" class="with-proposition">
+      <div class="header-wrapper">
+        <div class="header-global">
+          <div class="header-logo">
+            <a href="https://www.usa.gov/" title="Go to the USA.gov homepage" id="logo" class="content">
+              <!-- <img src="https://assets.publishing.service.gov.uk/spotlight/images/gov.uk_logotype_crown.png?0.12.0" width="35" height="31" alt="">
+              Service Design Analytics
+            </a>
+          </div>
+        </div>
+        <div class="header-proposition">
+          <div class="content">
+            <nav id="proposition-menu" role="navigation">
+              <!-- <a href="/performance" id="proposition-name">Service Level Indicators</a>
+              <span class="beta-tag">Alpha</span>
+              <a href="#proposition-links" class="js-header-toggle menu">Menu</a>
+              <ul id="proposition-links">
+                <!-- <li><a href="#">Services data</a></li>
+                <li><a href="https://analytics.usa.gov">Web traffic data</a></li> -->
+                <!-- <li><a href="http://performance-platform.readthedocs.org/">Get a dashboard</a></li>
+                <li><a href="/performance/about">About</a></li>
+                <li><a href="https://gdsdata.blog.gov.uk/category/archived/performance-platform/">Blog</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </header> -->
+    <!--end header-->
+
+    <div id="global-header-bar">
+      <div class="inner-block">
+        <div class="header-bar"></div>
+      </div>
+    </div>
+    <!--end global-header-bar-->
+
+    <div id="wrapper">
+    <main id="content" class="group" role="main">
+      <header>
+        <main>
+          <h1>
+            <span class="strapline">Dashboard</span>
+            VA Health Care Applications
+          </h1>
+          <p class="tagline">
+          This dashboard shows information about how the <strong>VA Health Care Applications</strong> service is currently performing.
+          </p>
+        </main>
+        <aside role='complementary'>
+          <div class='related-pages'>
+            <div class="related-transaction" itemscope itemtype="http:&#x2F;&#x2F;schema.org&#x2F;GovernmentService">
+              <h3>Visit this service</h3>
+              <div class="button_wrapper">
+                <a itemprop="name" href="https://www.vets.gov/healthcare/apply/">
+                <button>Apply for VA Health Care</button></a>
+              </div>
+            </div>
+          </div>
+          <!--<div class="big-screen-link-container">
+            <h3>View the dashboard</h3>
+            <a class="big-screen-link" href="&#x2F;performance/big-screen/vehicle-tax">Full screen mode</a>
+          </div> -->
+        </aside>
+      </header>
+      <section aria-labelledby="transactions-per-year-heading" role="region" id="transactions-per-year" class="module kpi cols3">
+        <h2 id="transactions-per-year-heading"><a href="/performance/vehicle-tax/transactions-per-year">Transactions per year</a></h2>
+        <div class="visualisation">
+          <div class="visualisation-inner">
+            <div class="stat">
+              <p class="single-stat-headline impact-number">
+                <strong><abbr aria-label="46,559,842" title="46,559,842">46.6m</abbr></strong>
+              </p>
+              <p class="period">Apr 2015 to Mar 2016</p>
+            </div>
+            <div class="delta">
+              <div class="single-stat-delta">
+                <span class="change impact-number decrease">
+                  −0.37%
+                </span>
+                Jan to Dec 2015
+              </div>
+            </div>
+          </div>
+          <div class="visualisation-moreinfo">
+          </div>
+        </div>
+      </section>
+      <section aria-labelledby="total-cost-heading" role="region" id="total-cost" class="module kpi cols3">
+        <h2 id="total-cost-heading"><a href="/performance/vehicle-tax/total-cost">Total cost</a></h2>
+        <div class="visualisation">
+          <div class="visualisation-inner">
+            <div class="stat">
+              <p class="single-stat-headline impact-number">
+                <strong><abbr aria-label="$44,697,448" title="$44,697,448">$44.7m</abbr></strong>
+              </p>
+              <p class="period">Apr 2015 to Mar 2016</p>
+            </div>
+            <div class="delta">
+              <div class="single-stat-delta">
+                <span class="change impact-number decrease">
+                  −2.41%
+                </span>
+                Jan to Dec 2015
+              </div>
+            </div>
+          </div>
+          <div class="visualisation-moreinfo">
+          </div>
+        </div>
+      </section>
+      <section aria-labelledby="cost-per-transaction-heading" role="region" id="cost-per-transaction" class="module kpi cols3">
+    <h2 id="cost-per-transaction-heading"><a href="/performance/vehicle-tax/cost-per-transaction">Cost per transaction</a></h2>
+    <div class="visualisation">
+      <div class="visualisation-inner"><div class="stat">
+        <p class="single-stat-headline impact-number">
+        <strong>$0.96</strong>
+        </p>
+        <p class="period">Apr 2015 to Mar 2016</p>
+      </div>
+      <div class="delta">
+        <div class="single-stat-delta">
+          <span class="change impact-number decrease">
+            −2.04%
+          </span>
+          Jan to Dec 2015
+        </div>
+      </div>
+    </div>
+    <div class="visualisation-moreinfo">
+    </div>
+    </div>
+  </section>
+  <section aria-labelledby="completion-rate-heading" role="region" id="completion-rate" class="module completion_rate">
+  <h2 id="completion-rate-heading"><a href="/performance/vehicle-tax/completion-rate">Completion rate (online applications)</a></h2>
+    <p>Users who complete a transaction as a percentage of those who start</p>
+  <div class="visualisation">
+<div class="visualisation-inner"><div class="single-decker-graph">
+  <div class="impact-number volumetrics-completion-selected"><span class="summary">22 to 28 May 2017</span><strong>63.1%</strong></div>
+  <div class="graph timeseries-graph volumetrics-completion">
+    <noscript><div class="visualisation-table-fallback"><table class=""><thead class=""><tr><th scope="col" data-key="_start_at" class="date" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=_start_at&amp;sortorder=descending" role="button">Date <span class="js-click-sort visuallyhidden">Click to sort</span></a></th>
+<th scope="col" data-key="completion" class="percent" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=completion&amp;sortorder=descending" role="button">Completion rate <span class="js-click-sort visuallyhidden">Click to sort</span></a></th></tr></thead><tbody><tr><th data-title="1" scope="row" class="date" data-key="_start_at">17 to 23 April 2017</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">61.3%</td></tr>
+<tr><th data-title="2" scope="row" class="date" data-key="_start_at">24 to 30 April 2017</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">64.9%</td></tr>
+<tr><th data-title="3" scope="row" class="date" data-key="_start_at">1 to 7 May 2017</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">60.3%</td></tr>
+<tr><th data-title="4" scope="row" class="date" data-key="_start_at">8 to 14 May 2017</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">60.5%</td></tr>
+<tr><th data-title="5" scope="row" class="date" data-key="_start_at">15 to 21 May 2017</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">60.9%</td></tr>
+<tr><th data-title="6" scope="row" class="date" data-key="_start_at">22 to 28 May 2017</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">63.1%</td></tr></tbody></table></div></noscript>
+  </div>
+</div>
+</div>
+
+
+<div class="visualisation-table visuallyhidden "><table class=""><thead class=""><tr><th scope="col" data-key="_start_at" class="date" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=_start_at&amp;sortorder=descending" role="button">Date <span class="js-click-sort visuallyhidden">Click to sort</span></a></th>
+<th scope="col" data-key="completion" class="percent" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=completion&amp;sortorder=descending" role="button">Completion rate <span class="js-click-sort visuallyhidden">Click to sort</span></a></th></tr></thead><tbody><tr><th data-title="1" scope="row" class="date" data-key="_start_at">30 May to 5 June 2016</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">38.9%</td></tr>
+<tr><th data-title="2" scope="row" class="date" data-key="_start_at">6 to 12 June 2016</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">40.7%</td></tr>
+<tr><th data-title="3" scope="row" class="date" data-key="_start_at">13 to 19 June 2016</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">42.2%</td></tr>
+<tr><th data-title="4" scope="row" class="date" data-key="_start_at">20 to 26 June 2016</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">39.9%</td></tr>
+<tr><th data-title="5" scope="row" class="date" data-key="_start_at">27 June to 3 July 2016</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">40.1%</td></tr>
+<tr><th data-title="6" scope="row" class="date" data-key="_start_at">4 to 10 July 2016</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">39.8%</td></tr>
+<tr><th data-title="7" scope="row" class="date" data-key="_start_at">11 to 17 July 2016</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">39%</td></tr>
+<tr><th data-title="8" scope="row" class="date" data-key="_start_at">18 to 24 July 2016</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">42.7%</td></tr>
+<tr><th data-title="9" scope="row" class="date" data-key="_start_at">25 to 31 July 2016</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">43.3%</td></tr>
+<tr><th data-title="10" scope="row" class="date" data-key="_start_at">1 to 7 August 2016</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">43.4%</td></tr>
+<tr><th data-title="11" scope="row" class="date" data-key="_start_at">8 to 14 August 2016</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">45%</td></tr>
+<tr><th data-title="12" scope="row" class="date" data-key="_start_at">15 to 21 August 2016</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">52.5%</td></tr>
+<tr><th data-title="13" scope="row" class="date" data-key="_start_at">22 to 28 August 2016</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">68.6%</td></tr>
+<tr><th data-title="14" scope="row" class="date" data-key="_start_at">29 August to 4 September 2016</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">46.9%</td></tr>
+<tr><th data-title="15" scope="row" class="date" data-key="_start_at">5 to 11 September 2016</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">44.1%</td></tr>
+<tr><th data-title="16" scope="row" class="date" data-key="_start_at">12 to 18 September 2016</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">42.9%</td></tr>
+<tr><th data-title="17" scope="row" class="date" data-key="_start_at">19 to 25 September 2016</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">43.6%</td></tr>
+<tr><th data-title="18" scope="row" class="date" data-key="_start_at">26 September to 2 October 2016</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">37.1%</td></tr>
+<tr><th data-title="19" scope="row" class="date" data-key="_start_at">3 to 9 October 2016</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">40.1%</td></tr>
+<tr><th data-title="20" scope="row" class="date" data-key="_start_at">10 to 16 October 2016</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">42.6%</td></tr>
+<tr><th data-title="21" scope="row" class="date" data-key="_start_at">17 to 23 October 2016</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">42.9%</td></tr>
+<tr><th data-title="22" scope="row" class="date" data-key="_start_at">24 to 30 October 2016</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">43.2%</td></tr>
+<tr><th data-title="23" scope="row" class="date" data-key="_start_at">31 October to 6 November 2016</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">42.4%</td></tr>
+<tr><th data-title="24" scope="row" class="date" data-key="_start_at">7 to 13 November 2016</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">43.5%</td></tr>
+<tr><th data-title="25" scope="row" class="date" data-key="_start_at">14 to 20 November 2016</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">42.5%</td></tr>
+<tr><th data-title="26" scope="row" class="date" data-key="_start_at">21 to 27 November 2016</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">42.7%</td></tr>
+<tr><th data-title="27" scope="row" class="date" data-key="_start_at">28 November to 4 December 2016</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">42.7%</td></tr>
+<tr><th data-title="28" scope="row" class="date" data-key="_start_at">5 to 11 December 2016</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">45%</td></tr>
+<tr><th data-title="29" scope="row" class="date" data-key="_start_at">12 to 18 December 2016</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">44%</td></tr>
+<tr><th data-title="30" scope="row" class="date" data-key="_start_at">19 to 25 December 2016</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">43.4%</td></tr>
+<tr><th data-title="31" scope="row" class="date" data-key="_start_at">26 December 2016 to 1 January 2017</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">43.8%</td></tr>
+<tr><th data-title="32" scope="row" class="date" data-key="_start_at">2 to 8 January 2017</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">43.6%</td></tr>
+<tr><th data-title="33" scope="row" class="date" data-key="_start_at">9 to 15 January 2017</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">59.3%</td></tr>
+<tr><th data-title="34" scope="row" class="date" data-key="_start_at">16 to 22 January 2017</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">59.5%</td></tr>
+<tr><th data-title="35" scope="row" class="date" data-key="_start_at">23 to 29 January 2017</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">63.5%</td></tr>
+<tr><th data-title="36" scope="row" class="date" data-key="_start_at">30 January to 5 February 2017</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">60.5%</td></tr>
+<tr><th data-title="37" scope="row" class="date" data-key="_start_at">6 to 12 February 2017</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">67.6%</td></tr>
+<tr><th data-title="38" scope="row" class="date" data-key="_start_at">13 to 19 February 2017</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">63.2%</td></tr>
+<tr><th data-title="39" scope="row" class="date" data-key="_start_at">20 to 26 February 2017</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">66.7%</td></tr>
+<tr><th data-title="40" scope="row" class="date" data-key="_start_at">27 February to 5 March 2017</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">64.1%</td></tr>
+<tr><th data-title="41" scope="row" class="date" data-key="_start_at">6 to 12 March 2017</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">63.5%</td></tr>
+<tr><th data-title="42" scope="row" class="date" data-key="_start_at">13 to 19 March 2017</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">60.9%</td></tr>
+<tr><th data-title="43" scope="row" class="date" data-key="_start_at">20 to 26 March 2017</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">62.1%</td></tr>
+<tr><th data-title="44" scope="row" class="date" data-key="_start_at">27 March to 2 April 2017</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">64.8%</td></tr>
+<tr><th data-title="45" scope="row" class="date" data-key="_start_at">3 to 9 April 2017</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">58.3%</td></tr>
+<tr><th data-title="46" scope="row" class="date" data-key="_start_at">10 to 16 April 2017</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">60.4%</td></tr>
+<tr><th data-title="47" scope="row" class="date" data-key="_start_at">17 to 23 April 2017</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">61.3%</td></tr>
+<tr><th data-title="48" scope="row" class="date" data-key="_start_at">24 to 30 April 2017</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">64.9%</td></tr>
+<tr><th data-title="49" scope="row" class="date" data-key="_start_at">1 to 7 May 2017</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">60.3%</td></tr>
+<tr><th data-title="50" scope="row" class="date" data-key="_start_at">8 to 14 May 2017</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">60.5%</td></tr>
+<tr><th data-title="51" scope="row" class="date" data-key="_start_at">15 to 21 May 2017</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">60.9%</td></tr>
+<tr><th data-title="52" scope="row" class="date" data-key="_start_at">22 to 28 May 2017</th>
+<td data-title="Completion rate: " class="percent" data-key="completion">63.1%</td></tr></tbody></table></div>
+
+
+<div class="visualisation-moreinfo">
+
+
+
+
+</div>
+
+</div>
+</section>
+<section aria-labelledby="live-service-usage-heading" role="region" id="live-service-usage" class="module realtime">
+
+
+
+    <h2 id="live-service-usage-heading"><a href="/performance/vehicle-tax/live-service-usage">Live service usage</a></h2>
+
+
+
+
+
+
+  <p>Users currently on the VA.gov start page for the service</p>
+
+
+<div class="visualisation">
+
+<div class="visualisation-inner"><p>
+  <div class="stat">
+    <p class="impact-number"><strong>794</strong></p>
+    <span class="stat-description" role="presentation">users online now</span>
+  </div>
+
+  <div class="sparkline">
+    <span class="sparkline-title"></span>
+    <div class="sparkline-graph">
+    </div>
+  </div>
+   <noscript>
+      <div class="visualisation-table-fallback">
+      <table class=""><thead class=""><tr><th scope="col" data-key="_timestamp" class="time" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=_timestamp&amp;sortorder=descending" role="button">Time <span class="js-click-sort visuallyhidden">Click to sort</span></a></th>
+<th scope="col" data-key="unique_visitors" class="integer" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=unique_visitors&amp;sortorder=descending" role="button">Number of unique visitors <span class="js-click-sort visuallyhidden">Click to sort</span></a></th></tr></thead><tbody><tr><th data-title="1" scope="row" class="time" data-key="_timestamp">12:45pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">792</td></tr>
+<tr><th data-title="2" scope="row" class="time" data-key="_timestamp">12:50pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">830</td></tr>
+<tr><th data-title="3" scope="row" class="time" data-key="_timestamp">12:55pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">818</td></tr>
+<tr><th data-title="4" scope="row" class="time" data-key="_timestamp">1:00pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">755</td></tr>
+<tr><th data-title="5" scope="row" class="time" data-key="_timestamp">1:05pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">777</td></tr>
+<tr><th data-title="6" scope="row" class="time" data-key="_timestamp">1:10pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">794</td></tr></tbody></table></div>
+   </noscript>
+
+</p>
+</div>
+
+
+<div class="visualisation-table visuallyhidden "><table class=""><thead class=""><tr><th scope="col" data-key="_timestamp" class="time" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=_timestamp&amp;sortorder=descending" role="button">Time <span class="js-click-sort visuallyhidden">Click to sort</span></a></th>
+<th scope="col" data-key="unique_visitors" class="integer" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=unique_visitors&amp;sortorder=descending" role="button">Number of unique visitors <span class="js-click-sort visuallyhidden">Click to sort</span></a></th></tr></thead><tbody><tr><th data-title="1" scope="row" class="time" data-key="_timestamp">12:15pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">1,106</td></tr>
+<tr><th data-title="2" scope="row" class="time" data-key="_timestamp">12:20pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">1,062</td></tr>
+<tr><th data-title="3" scope="row" class="time" data-key="_timestamp">12:25pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">1,094</td></tr>
+<tr><th data-title="4" scope="row" class="time" data-key="_timestamp">12:30pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">1,075</td></tr>
+<tr><th data-title="5" scope="row" class="time" data-key="_timestamp">12:35pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">1,080</td></tr>
+<tr><th data-title="6" scope="row" class="time" data-key="_timestamp">12:40pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">1,082</td></tr>
+<tr><th data-title="7" scope="row" class="time" data-key="_timestamp">12:45pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">1,051</td></tr>
+<tr><th data-title="8" scope="row" class="time" data-key="_timestamp">12:50pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">1,015</td></tr>
+<tr><th data-title="9" scope="row" class="time" data-key="_timestamp">12:55pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">1,016</td></tr>
+<tr><th data-title="10" scope="row" class="time" data-key="_timestamp">1:00pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">1,034</td></tr>
+<tr><th data-title="11" scope="row" class="time" data-key="_timestamp">1:05pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">1,056</td></tr>
+<tr><th data-title="12" scope="row" class="time" data-key="_timestamp">1:10pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">984</td></tr>
+<tr><th data-title="13" scope="row" class="time" data-key="_timestamp">1:15pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">991</td></tr>
+<tr><th data-title="14" scope="row" class="time" data-key="_timestamp">1:20pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">961</td></tr>
+<tr><th data-title="15" scope="row" class="time" data-key="_timestamp">1:25pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">971</td></tr>
+<tr><th data-title="16" scope="row" class="time" data-key="_timestamp">1:30pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">955</td></tr>
+<tr><th data-title="17" scope="row" class="time" data-key="_timestamp">1:35pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">946</td></tr>
+<tr><th data-title="18" scope="row" class="time" data-key="_timestamp">1:45pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">1,004</td></tr>
+<tr><th data-title="19" scope="row" class="time" data-key="_timestamp">1:50pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">985</td></tr>
+<tr><th data-title="20" scope="row" class="time" data-key="_timestamp">1:55pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">967</td></tr>
+<tr><th data-title="21" scope="row" class="time" data-key="_timestamp">2:00pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">975</td></tr>
+<tr><th data-title="22" scope="row" class="time" data-key="_timestamp">2:05pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">992</td></tr>
+<tr><th data-title="23" scope="row" class="time" data-key="_timestamp">2:10pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">988</td></tr>
+<tr><th data-title="24" scope="row" class="time" data-key="_timestamp">2:15pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">994</td></tr>
+<tr><th data-title="25" scope="row" class="time" data-key="_timestamp">2:20pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">931</td></tr>
+<tr><th data-title="26" scope="row" class="time" data-key="_timestamp">2:25pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">961</td></tr>
+<tr><th data-title="27" scope="row" class="time" data-key="_timestamp">2:30pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">1,006</td></tr>
+<tr><th data-title="28" scope="row" class="time" data-key="_timestamp">2:35pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">960</td></tr>
+<tr><th data-title="29" scope="row" class="time" data-key="_timestamp">2:40pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">1,030</td></tr>
+<tr><th data-title="30" scope="row" class="time" data-key="_timestamp">2:45pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">950</td></tr>
+<tr><th data-title="31" scope="row" class="time" data-key="_timestamp">2:50pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">985</td></tr>
+<tr><th data-title="32" scope="row" class="time" data-key="_timestamp">2:55pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">977</td></tr>
+<tr><th data-title="33" scope="row" class="time" data-key="_timestamp">3:00pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">939</td></tr>
+<tr><th data-title="34" scope="row" class="time" data-key="_timestamp">3:05pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">949</td></tr>
+<tr><th data-title="35" scope="row" class="time" data-key="_timestamp">3:10pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">962</td></tr>
+<tr><th data-title="36" scope="row" class="time" data-key="_timestamp">3:15pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">924</td></tr>
+<tr><th data-title="37" scope="row" class="time" data-key="_timestamp">3:20pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">997</td></tr>
+<tr><th data-title="38" scope="row" class="time" data-key="_timestamp">3:25pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">983</td></tr>
+<tr><th data-title="39" scope="row" class="time" data-key="_timestamp">3:30pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">1,001</td></tr>
+<tr><th data-title="40" scope="row" class="time" data-key="_timestamp">3:35pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">978</td></tr>
+<tr><th data-title="41" scope="row" class="time" data-key="_timestamp">3:40pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">965</td></tr>
+<tr><th data-title="42" scope="row" class="time" data-key="_timestamp">3:45pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">1,009</td></tr>
+<tr><th data-title="43" scope="row" class="time" data-key="_timestamp">3:50pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">1,044</td></tr>
+<tr><th data-title="44" scope="row" class="time" data-key="_timestamp">3:55pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">987</td></tr>
+<tr><th data-title="45" scope="row" class="time" data-key="_timestamp">4:05pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">1,003</td></tr>
+<tr><th data-title="46" scope="row" class="time" data-key="_timestamp">4:10pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">984</td></tr>
+<tr><th data-title="47" scope="row" class="time" data-key="_timestamp">4:15pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">1,025</td></tr>
+<tr><th data-title="48" scope="row" class="time" data-key="_timestamp">4:20pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">1,057</td></tr>
+<tr><th data-title="49" scope="row" class="time" data-key="_timestamp">4:25pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">1,060</td></tr>
+<tr><th data-title="50" scope="row" class="time" data-key="_timestamp">4:30pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">1,045</td></tr>
+<tr><th data-title="51" scope="row" class="time" data-key="_timestamp">4:35pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">961</td></tr>
+<tr><th data-title="52" scope="row" class="time" data-key="_timestamp">4:40pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">1,014</td></tr>
+<tr><th data-title="53" scope="row" class="time" data-key="_timestamp">4:45pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">1,000</td></tr>
+<tr><th data-title="54" scope="row" class="time" data-key="_timestamp">4:50pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">905</td></tr>
+<tr><th data-title="55" scope="row" class="time" data-key="_timestamp">4:55pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">1,001</td></tr>
+<tr><th data-title="56" scope="row" class="time" data-key="_timestamp">5:00pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">955</td></tr>
+<tr><th data-title="57" scope="row" class="time" data-key="_timestamp">5:05pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">969</td></tr>
+<tr><th data-title="58" scope="row" class="time" data-key="_timestamp">5:10pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">944</td></tr>
+<tr><th data-title="59" scope="row" class="time" data-key="_timestamp">5:15pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">928</td></tr>
+<tr><th data-title="60" scope="row" class="time" data-key="_timestamp">5:20pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">971</td></tr>
+<tr><th data-title="61" scope="row" class="time" data-key="_timestamp">5:25pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">910</td></tr>
+<tr><th data-title="62" scope="row" class="time" data-key="_timestamp">5:30pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">945</td></tr>
+<tr><th data-title="63" scope="row" class="time" data-key="_timestamp">5:35pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">912</td></tr>
+<tr><th data-title="64" scope="row" class="time" data-key="_timestamp">5:40pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">915</td></tr>
+<tr><th data-title="65" scope="row" class="time" data-key="_timestamp">5:45pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">915</td></tr>
+<tr><th data-title="66" scope="row" class="time" data-key="_timestamp">5:50pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">891</td></tr>
+<tr><th data-title="67" scope="row" class="time" data-key="_timestamp">5:55pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">854</td></tr>
+<tr><th data-title="68" scope="row" class="time" data-key="_timestamp">6:00pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">847</td></tr>
+<tr><th data-title="69" scope="row" class="time" data-key="_timestamp">6:05pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">893</td></tr>
+<tr><th data-title="70" scope="row" class="time" data-key="_timestamp">6:10pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">843</td></tr>
+<tr><th data-title="71" scope="row" class="time" data-key="_timestamp">6:15pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">832</td></tr>
+<tr><th data-title="72" scope="row" class="time" data-key="_timestamp">6:20pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">827</td></tr>
+<tr><th data-title="73" scope="row" class="time" data-key="_timestamp">6:25pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">799</td></tr>
+<tr><th data-title="74" scope="row" class="time" data-key="_timestamp">6:30pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">825</td></tr>
+<tr><th data-title="75" scope="row" class="time" data-key="_timestamp">6:35pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">819</td></tr>
+<tr><th data-title="76" scope="row" class="time" data-key="_timestamp">6:40pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">856</td></tr>
+<tr><th data-title="77" scope="row" class="time" data-key="_timestamp">6:45pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">812</td></tr>
+<tr><th data-title="78" scope="row" class="time" data-key="_timestamp">6:50pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">811</td></tr>
+<tr><th data-title="79" scope="row" class="time" data-key="_timestamp">6:55pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">793</td></tr>
+<tr><th data-title="80" scope="row" class="time" data-key="_timestamp">7:00pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">798</td></tr>
+<tr><th data-title="81" scope="row" class="time" data-key="_timestamp">7:05pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">788</td></tr>
+<tr><th data-title="82" scope="row" class="time" data-key="_timestamp">7:10pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">756</td></tr>
+<tr><th data-title="83" scope="row" class="time" data-key="_timestamp">7:15pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">775</td></tr>
+<tr><th data-title="84" scope="row" class="time" data-key="_timestamp">7:20pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">762</td></tr>
+<tr><th data-title="85" scope="row" class="time" data-key="_timestamp">7:25pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">770</td></tr>
+<tr><th data-title="86" scope="row" class="time" data-key="_timestamp">7:30pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">817</td></tr>
+<tr><th data-title="87" scope="row" class="time" data-key="_timestamp">7:35pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">789</td></tr>
+<tr><th data-title="88" scope="row" class="time" data-key="_timestamp">7:40pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">800</td></tr>
+<tr><th data-title="89" scope="row" class="time" data-key="_timestamp">7:45pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">754</td></tr>
+<tr><th data-title="90" scope="row" class="time" data-key="_timestamp">7:50pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">769</td></tr>
+<tr><th data-title="91" scope="row" class="time" data-key="_timestamp">7:55pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">729</td></tr>
+<tr><th data-title="92" scope="row" class="time" data-key="_timestamp">8:00pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">746</td></tr>
+<tr><th data-title="93" scope="row" class="time" data-key="_timestamp">8:05pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">779</td></tr>
+<tr><th data-title="94" scope="row" class="time" data-key="_timestamp">8:10pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">710</td></tr>
+<tr><th data-title="95" scope="row" class="time" data-key="_timestamp">8:15pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">741</td></tr>
+<tr><th data-title="96" scope="row" class="time" data-key="_timestamp">8:20pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">744</td></tr>
+<tr><th data-title="97" scope="row" class="time" data-key="_timestamp">8:25pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">638</td></tr>
+<tr><th data-title="98" scope="row" class="time" data-key="_timestamp">8:30pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">652</td></tr>
+<tr><th data-title="99" scope="row" class="time" data-key="_timestamp">8:35pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">702</td></tr>
+<tr><th data-title="100" scope="row" class="time" data-key="_timestamp">8:40pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">686</td></tr>
+<tr><th data-title="101" scope="row" class="time" data-key="_timestamp">8:45pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">619</td></tr>
+<tr><th data-title="102" scope="row" class="time" data-key="_timestamp">8:50pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">692</td></tr>
+<tr><th data-title="103" scope="row" class="time" data-key="_timestamp">8:55pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">659</td></tr>
+<tr><th data-title="104" scope="row" class="time" data-key="_timestamp">9:00pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">626</td></tr>
+<tr><th data-title="105" scope="row" class="time" data-key="_timestamp">9:05pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">688</td></tr>
+<tr><th data-title="106" scope="row" class="time" data-key="_timestamp">9:12pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">645</td></tr>
+<tr><th data-title="107" scope="row" class="time" data-key="_timestamp">9:15pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">659</td></tr>
+<tr><th data-title="108" scope="row" class="time" data-key="_timestamp">9:20pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">640</td></tr>
+<tr><th data-title="109" scope="row" class="time" data-key="_timestamp">9:25pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">604</td></tr>
+<tr><th data-title="110" scope="row" class="time" data-key="_timestamp">9:30pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">585</td></tr>
+<tr><th data-title="111" scope="row" class="time" data-key="_timestamp">9:35pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">518</td></tr>
+<tr><th data-title="112" scope="row" class="time" data-key="_timestamp">9:40pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">475</td></tr>
+<tr><th data-title="113" scope="row" class="time" data-key="_timestamp">9:45pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">489</td></tr>
+<tr><th data-title="114" scope="row" class="time" data-key="_timestamp">9:50pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">434</td></tr>
+<tr><th data-title="115" scope="row" class="time" data-key="_timestamp">9:55pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">407</td></tr>
+<tr><th data-title="116" scope="row" class="time" data-key="_timestamp">10:00pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">430</td></tr>
+<tr><th data-title="117" scope="row" class="time" data-key="_timestamp">10:05pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">391</td></tr>
+<tr><th data-title="118" scope="row" class="time" data-key="_timestamp">10:10pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">423</td></tr>
+<tr><th data-title="119" scope="row" class="time" data-key="_timestamp">10:15pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">373</td></tr>
+<tr><th data-title="120" scope="row" class="time" data-key="_timestamp">10:20pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">341</td></tr>
+<tr><th data-title="121" scope="row" class="time" data-key="_timestamp">10:25pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">310</td></tr>
+<tr><th data-title="122" scope="row" class="time" data-key="_timestamp">10:30pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">267</td></tr>
+<tr><th data-title="123" scope="row" class="time" data-key="_timestamp">10:35pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">259</td></tr>
+<tr><th data-title="124" scope="row" class="time" data-key="_timestamp">10:40pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">246</td></tr>
+<tr><th data-title="125" scope="row" class="time" data-key="_timestamp">10:45pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">223</td></tr>
+<tr><th data-title="126" scope="row" class="time" data-key="_timestamp">10:50pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">239</td></tr>
+<tr><th data-title="127" scope="row" class="time" data-key="_timestamp">10:55pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">198</td></tr>
+<tr><th data-title="128" scope="row" class="time" data-key="_timestamp">11:00pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">207</td></tr>
+<tr><th data-title="129" scope="row" class="time" data-key="_timestamp">11:05pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">197</td></tr>
+<tr><th data-title="130" scope="row" class="time" data-key="_timestamp">11:15pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">162</td></tr>
+<tr><th data-title="131" scope="row" class="time" data-key="_timestamp">11:20pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">164</td></tr>
+<tr><th data-title="132" scope="row" class="time" data-key="_timestamp">11:25pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">160</td></tr>
+<tr><th data-title="133" scope="row" class="time" data-key="_timestamp">11:30pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">122</td></tr>
+<tr><th data-title="134" scope="row" class="time" data-key="_timestamp">11:35pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">127</td></tr>
+<tr><th data-title="135" scope="row" class="time" data-key="_timestamp">11:40pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">139</td></tr>
+<tr><th data-title="136" scope="row" class="time" data-key="_timestamp">11:45pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">109</td></tr>
+<tr><th data-title="137" scope="row" class="time" data-key="_timestamp">11:50pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">117</td></tr>
+<tr><th data-title="138" scope="row" class="time" data-key="_timestamp">11:55pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">107</td></tr>
+<tr><th data-title="139" scope="row" class="time" data-key="_timestamp">12:00am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">82</td></tr>
+<tr><th data-title="140" scope="row" class="time" data-key="_timestamp">12:16am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">89</td></tr>
+<tr><th data-title="141" scope="row" class="time" data-key="_timestamp">12:16am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">89</td></tr>
+<tr><th data-title="142" scope="row" class="time" data-key="_timestamp">12:20am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">70</td></tr>
+<tr><th data-title="143" scope="row" class="time" data-key="_timestamp">12:25am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">73</td></tr>
+<tr><th data-title="144" scope="row" class="time" data-key="_timestamp">12:30am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">73</td></tr>
+<tr><th data-title="145" scope="row" class="time" data-key="_timestamp">12:32am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">69</td></tr>
+<tr><th data-title="146" scope="row" class="time" data-key="_timestamp">12:35am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">66</td></tr>
+<tr><th data-title="147" scope="row" class="time" data-key="_timestamp">12:40am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">55</td></tr>
+<tr><th data-title="148" scope="row" class="time" data-key="_timestamp">12:45am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">45</td></tr>
+<tr><th data-title="149" scope="row" class="time" data-key="_timestamp">12:50am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">52</td></tr>
+<tr><th data-title="150" scope="row" class="time" data-key="_timestamp">12:55am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">58</td></tr>
+<tr><th data-title="151" scope="row" class="time" data-key="_timestamp">1:00am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">43</td></tr>
+<tr><th data-title="152" scope="row" class="time" data-key="_timestamp">1:05am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">43</td></tr>
+<tr><th data-title="153" scope="row" class="time" data-key="_timestamp">1:10am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">56</td></tr>
+<tr><th data-title="154" scope="row" class="time" data-key="_timestamp">1:15am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">42</td></tr>
+<tr><th data-title="155" scope="row" class="time" data-key="_timestamp">1:20am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">39</td></tr>
+<tr><th data-title="156" scope="row" class="time" data-key="_timestamp">1:25am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">44</td></tr>
+<tr><th data-title="157" scope="row" class="time" data-key="_timestamp">1:30am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">31</td></tr>
+<tr><th data-title="158" scope="row" class="time" data-key="_timestamp">1:35am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">39</td></tr>
+<tr><th data-title="159" scope="row" class="time" data-key="_timestamp">1:40am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">28</td></tr>
+<tr><th data-title="160" scope="row" class="time" data-key="_timestamp">1:45am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">30</td></tr>
+<tr><th data-title="161" scope="row" class="time" data-key="_timestamp">1:50am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">34</td></tr>
+<tr><th data-title="162" scope="row" class="time" data-key="_timestamp">1:55am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">29</td></tr>
+<tr><th data-title="163" scope="row" class="time" data-key="_timestamp">2:00am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">29</td></tr>
+<tr><th data-title="164" scope="row" class="time" data-key="_timestamp">2:05am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">21</td></tr>
+<tr><th data-title="165" scope="row" class="time" data-key="_timestamp">2:10am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">30</td></tr>
+<tr><th data-title="166" scope="row" class="time" data-key="_timestamp">2:15am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">34</td></tr>
+<tr><th data-title="167" scope="row" class="time" data-key="_timestamp">2:20am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">26</td></tr>
+<tr><th data-title="168" scope="row" class="time" data-key="_timestamp">2:25am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">23</td></tr>
+<tr><th data-title="169" scope="row" class="time" data-key="_timestamp">2:30am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">23</td></tr>
+<tr><th data-title="170" scope="row" class="time" data-key="_timestamp">2:35am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">22</td></tr>
+<tr><th data-title="171" scope="row" class="time" data-key="_timestamp">2:40am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">25</td></tr>
+<tr><th data-title="172" scope="row" class="time" data-key="_timestamp">2:45am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">27</td></tr>
+<tr><th data-title="173" scope="row" class="time" data-key="_timestamp">2:50am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">24</td></tr>
+<tr><th data-title="174" scope="row" class="time" data-key="_timestamp">2:55am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">26</td></tr>
+<tr><th data-title="175" scope="row" class="time" data-key="_timestamp">3:00am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">26</td></tr>
+<tr><th data-title="176" scope="row" class="time" data-key="_timestamp">3:05am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">22</td></tr>
+<tr><th data-title="177" scope="row" class="time" data-key="_timestamp">3:10am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">38</td></tr>
+<tr><th data-title="178" scope="row" class="time" data-key="_timestamp">3:15am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">24</td></tr>
+<tr><th data-title="179" scope="row" class="time" data-key="_timestamp">3:20am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">23</td></tr>
+<tr><th data-title="180" scope="row" class="time" data-key="_timestamp">3:25am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">31</td></tr>
+<tr><th data-title="181" scope="row" class="time" data-key="_timestamp">3:35am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">24</td></tr>
+<tr><th data-title="182" scope="row" class="time" data-key="_timestamp">3:40am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">23</td></tr>
+<tr><th data-title="183" scope="row" class="time" data-key="_timestamp">3:50am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">36</td></tr>
+<tr><th data-title="184" scope="row" class="time" data-key="_timestamp">3:55am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">29</td></tr>
+<tr><th data-title="185" scope="row" class="time" data-key="_timestamp">4:00am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">33</td></tr>
+<tr><th data-title="186" scope="row" class="time" data-key="_timestamp">4:05am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">40</td></tr>
+<tr><th data-title="187" scope="row" class="time" data-key="_timestamp">4:10am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">59</td></tr>
+<tr><th data-title="188" scope="row" class="time" data-key="_timestamp">4:15am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">41</td></tr>
+<tr><th data-title="189" scope="row" class="time" data-key="_timestamp">4:20am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">43</td></tr>
+<tr><th data-title="190" scope="row" class="time" data-key="_timestamp">4:25am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">68</td></tr>
+<tr><th data-title="191" scope="row" class="time" data-key="_timestamp">4:30am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">59</td></tr>
+<tr><th data-title="192" scope="row" class="time" data-key="_timestamp">4:35am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">65</td></tr>
+<tr><th data-title="193" scope="row" class="time" data-key="_timestamp">4:40am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">66</td></tr>
+<tr><th data-title="194" scope="row" class="time" data-key="_timestamp">4:45am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">57</td></tr>
+<tr><th data-title="195" scope="row" class="time" data-key="_timestamp">4:55am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">95</td></tr>
+<tr><th data-title="196" scope="row" class="time" data-key="_timestamp">5:00am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">81</td></tr>
+<tr><th data-title="197" scope="row" class="time" data-key="_timestamp">5:05am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">101</td></tr>
+<tr><th data-title="198" scope="row" class="time" data-key="_timestamp">5:10am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">117</td></tr>
+<tr><th data-title="199" scope="row" class="time" data-key="_timestamp">5:15am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">109</td></tr>
+<tr><th data-title="200" scope="row" class="time" data-key="_timestamp">5:20am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">120</td></tr>
+<tr><th data-title="201" scope="row" class="time" data-key="_timestamp">5:25am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">142</td></tr>
+<tr><th data-title="202" scope="row" class="time" data-key="_timestamp">5:30am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">159</td></tr>
+<tr><th data-title="203" scope="row" class="time" data-key="_timestamp">5:35am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">155</td></tr>
+<tr><th data-title="204" scope="row" class="time" data-key="_timestamp">5:40am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">178</td></tr>
+<tr><th data-title="205" scope="row" class="time" data-key="_timestamp">5:45am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">204</td></tr>
+<tr><th data-title="206" scope="row" class="time" data-key="_timestamp">5:50am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">197</td></tr>
+<tr><th data-title="207" scope="row" class="time" data-key="_timestamp">5:55am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">213</td></tr>
+<tr><th data-title="208" scope="row" class="time" data-key="_timestamp">6:00am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">217</td></tr>
+<tr><th data-title="209" scope="row" class="time" data-key="_timestamp">6:05am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">239</td></tr>
+<tr><th data-title="210" scope="row" class="time" data-key="_timestamp">6:10am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">259</td></tr>
+<tr><th data-title="211" scope="row" class="time" data-key="_timestamp">6:15am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">295</td></tr>
+<tr><th data-title="212" scope="row" class="time" data-key="_timestamp">6:20am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">325</td></tr>
+<tr><th data-title="213" scope="row" class="time" data-key="_timestamp">6:25am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">317</td></tr>
+<tr><th data-title="214" scope="row" class="time" data-key="_timestamp">6:30am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">328</td></tr>
+<tr><th data-title="215" scope="row" class="time" data-key="_timestamp">6:35am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">352</td></tr>
+<tr><th data-title="216" scope="row" class="time" data-key="_timestamp">6:40am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">350</td></tr>
+<tr><th data-title="217" scope="row" class="time" data-key="_timestamp">6:45am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">413</td></tr>
+<tr><th data-title="218" scope="row" class="time" data-key="_timestamp">6:50am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">418</td></tr>
+<tr><th data-title="219" scope="row" class="time" data-key="_timestamp">6:55am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">414</td></tr>
+<tr><th data-title="220" scope="row" class="time" data-key="_timestamp">7:00am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">455</td></tr>
+<tr><th data-title="221" scope="row" class="time" data-key="_timestamp">7:05am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">470</td></tr>
+<tr><th data-title="222" scope="row" class="time" data-key="_timestamp">7:10am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">509</td></tr>
+<tr><th data-title="223" scope="row" class="time" data-key="_timestamp">7:15am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">527</td></tr>
+<tr><th data-title="224" scope="row" class="time" data-key="_timestamp">7:25am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">534</td></tr>
+<tr><th data-title="225" scope="row" class="time" data-key="_timestamp">7:30am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">557</td></tr>
+<tr><th data-title="226" scope="row" class="time" data-key="_timestamp">7:35am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">570</td></tr>
+<tr><th data-title="227" scope="row" class="time" data-key="_timestamp">7:40am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">610</td></tr>
+<tr><th data-title="228" scope="row" class="time" data-key="_timestamp">7:45am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">647</td></tr>
+<tr><th data-title="229" scope="row" class="time" data-key="_timestamp">7:50am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">635</td></tr>
+<tr><th data-title="230" scope="row" class="time" data-key="_timestamp">7:55am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">654</td></tr>
+<tr><th data-title="231" scope="row" class="time" data-key="_timestamp">8:00am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">660</td></tr>
+<tr><th data-title="232" scope="row" class="time" data-key="_timestamp">8:05am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">694</td></tr>
+<tr><th data-title="233" scope="row" class="time" data-key="_timestamp">8:10am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">701</td></tr>
+<tr><th data-title="234" scope="row" class="time" data-key="_timestamp">8:15am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">716</td></tr>
+<tr><th data-title="235" scope="row" class="time" data-key="_timestamp">8:20am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">771</td></tr>
+<tr><th data-title="236" scope="row" class="time" data-key="_timestamp">8:25am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">786</td></tr>
+<tr><th data-title="237" scope="row" class="time" data-key="_timestamp">8:35am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">789</td></tr>
+<tr><th data-title="238" scope="row" class="time" data-key="_timestamp">8:40am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">771</td></tr>
+<tr><th data-title="239" scope="row" class="time" data-key="_timestamp">8:50am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">818</td></tr>
+<tr><th data-title="240" scope="row" class="time" data-key="_timestamp">8:55am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">806</td></tr>
+<tr><th data-title="241" scope="row" class="time" data-key="_timestamp">9:00am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">827</td></tr>
+<tr><th data-title="242" scope="row" class="time" data-key="_timestamp">9:05am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">854</td></tr>
+<tr><th data-title="243" scope="row" class="time" data-key="_timestamp">9:10am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">797</td></tr>
+<tr><th data-title="244" scope="row" class="time" data-key="_timestamp">9:15am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">903</td></tr>
+<tr><th data-title="245" scope="row" class="time" data-key="_timestamp">9:20am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">901</td></tr>
+<tr><th data-title="246" scope="row" class="time" data-key="_timestamp">9:25am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">909</td></tr>
+<tr><th data-title="247" scope="row" class="time" data-key="_timestamp">9:30am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">873</td></tr>
+<tr><th data-title="248" scope="row" class="time" data-key="_timestamp">9:35am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">857</td></tr>
+<tr><th data-title="249" scope="row" class="time" data-key="_timestamp">9:40am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">896</td></tr>
+<tr><th data-title="250" scope="row" class="time" data-key="_timestamp">9:45am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">907</td></tr>
+<tr><th data-title="251" scope="row" class="time" data-key="_timestamp">9:50am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">875</td></tr>
+<tr><th data-title="252" scope="row" class="time" data-key="_timestamp">9:55am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">855</td></tr>
+<tr><th data-title="253" scope="row" class="time" data-key="_timestamp">10:00am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">873</td></tr>
+<tr><th data-title="254" scope="row" class="time" data-key="_timestamp">10:05am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">890</td></tr>
+<tr><th data-title="255" scope="row" class="time" data-key="_timestamp">10:10am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">859</td></tr>
+<tr><th data-title="256" scope="row" class="time" data-key="_timestamp">10:15am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">840</td></tr>
+<tr><th data-title="257" scope="row" class="time" data-key="_timestamp">10:20am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">891</td></tr>
+<tr><th data-title="258" scope="row" class="time" data-key="_timestamp">10:25am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">873</td></tr>
+<tr><th data-title="259" scope="row" class="time" data-key="_timestamp">10:30am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">832</td></tr>
+<tr><th data-title="260" scope="row" class="time" data-key="_timestamp">10:35am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">861</td></tr>
+<tr><th data-title="261" scope="row" class="time" data-key="_timestamp">10:40am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">888</td></tr>
+<tr><th data-title="262" scope="row" class="time" data-key="_timestamp">10:45am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">869</td></tr>
+<tr><th data-title="263" scope="row" class="time" data-key="_timestamp">10:50am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">884</td></tr>
+<tr><th data-title="264" scope="row" class="time" data-key="_timestamp">10:55am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">839</td></tr>
+<tr><th data-title="265" scope="row" class="time" data-key="_timestamp">11:00am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">838</td></tr>
+<tr><th data-title="266" scope="row" class="time" data-key="_timestamp">11:05am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">813</td></tr>
+<tr><th data-title="267" scope="row" class="time" data-key="_timestamp">11:10am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">799</td></tr>
+<tr><th data-title="268" scope="row" class="time" data-key="_timestamp">11:15am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">811</td></tr>
+<tr><th data-title="269" scope="row" class="time" data-key="_timestamp">11:20am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">804</td></tr>
+<tr><th data-title="270" scope="row" class="time" data-key="_timestamp">11:25am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">821</td></tr>
+<tr><th data-title="271" scope="row" class="time" data-key="_timestamp">11:30am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">791</td></tr>
+<tr><th data-title="272" scope="row" class="time" data-key="_timestamp">11:35am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">834</td></tr>
+<tr><th data-title="273" scope="row" class="time" data-key="_timestamp">11:40am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">803</td></tr>
+<tr><th data-title="274" scope="row" class="time" data-key="_timestamp">11:45am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">786</td></tr>
+<tr><th data-title="275" scope="row" class="time" data-key="_timestamp">11:50am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">792</td></tr>
+<tr><th data-title="276" scope="row" class="time" data-key="_timestamp">11:55am</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">772</td></tr>
+<tr><th data-title="277" scope="row" class="time" data-key="_timestamp">12:00pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">811</td></tr>
+<tr><th data-title="278" scope="row" class="time" data-key="_timestamp">12:10pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">800</td></tr>
+<tr><th data-title="279" scope="row" class="time" data-key="_timestamp">12:15pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">740</td></tr>
+<tr><th data-title="280" scope="row" class="time" data-key="_timestamp">12:20pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">797</td></tr>
+<tr><th data-title="281" scope="row" class="time" data-key="_timestamp">12:25pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">727</td></tr>
+<tr><th data-title="282" scope="row" class="time" data-key="_timestamp">12:30pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">759</td></tr>
+<tr><th data-title="283" scope="row" class="time" data-key="_timestamp">12:35pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">766</td></tr>
+<tr><th data-title="284" scope="row" class="time" data-key="_timestamp">12:40pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">748</td></tr>
+<tr><th data-title="285" scope="row" class="time" data-key="_timestamp">12:45pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">792</td></tr>
+<tr><th data-title="286" scope="row" class="time" data-key="_timestamp">12:50pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">830</td></tr>
+<tr><th data-title="287" scope="row" class="time" data-key="_timestamp">12:55pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">818</td></tr>
+<tr><th data-title="288" scope="row" class="time" data-key="_timestamp">1:00pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">755</td></tr>
+<tr><th data-title="289" scope="row" class="time" data-key="_timestamp">1:05pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">777</td></tr>
+<tr><th data-title="290" scope="row" class="time" data-key="_timestamp">1:10pm</th>
+<td data-title="Number of unique visitors: " class="integer" data-key="unique_visitors">794</td></tr></tbody></table></div>
+
+
+<div class="visualisation-moreinfo">
+
+
+
+
+</div>
+
+</div>
+</section>
+<section aria-labelledby="volumetrics-heading" role="region" id="volumetrics" class="module grouped_timeseries">
+
+
+
+    <h2 id="volumetrics-heading"><a href="/performance/vehicle-tax/volumetrics">Applications breakdown</a></h2>
+
+
+
+
+
+
+  <p>VA Health Care Applications per month broken into <span class="group0">digital or automated phone</span>, <span class="group1">USPS (mail)</span> and <span class="group2">assisted (In-person)</span> applications</p>
+
+
+<div class="visualisation">
+
+<div class="visualisation-inner"><div class="categories">
+  <noscript><div class="visualisation-table-fallback"><table class=""><thead class=""><tr><th scope="col" data-key="_start_at" class="date" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=_start_at&amp;sortorder=descending" role="button">Date <span class="js-click-sort visuallyhidden">Click to sort</span></a></th>
+<th scope="col" data-key="fully-digital:volume:sum" class="integer" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=fully-digital:volume:sum&amp;sortorder=descending" role="button">Digital and automated phone <span class="js-click-sort visuallyhidden">Click to sort</span></a></th>
+<th scope="col" data-key="assisted-digital:volume:sum" class="integer" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=assisted-digital:volume:sum&amp;sortorder=descending" role="button">USPS <span class="js-click-sort visuallyhidden">Click to sort</span></a></th>
+<th scope="col" data-key="manual:volume:sum" class="integer" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=manual:volume:sum&amp;sortorder=descending" role="button">assisted <span class="js-click-sort visuallyhidden">Click to sort</span></a></th></tr></thead><tbody><tr><th data-title="1" scope="row" class="date" data-key="_start_at">November 2016</th>
+<td data-title="Digital and automated phone: " class="integer" data-key="fully-digital:volume:sum">2,704,521</td>
+<td data-title="USPS: " class="integer" data-key="assisted-digital:volume:sum">641,294</td>
+<td data-title="assisted (in-person): " class="integer" data-key="manual:volume:sum">11,261</td></tr>
+<tr><th data-title="2" scope="row" class="date" data-key="_start_at">December 2016</th>
+<td data-title="Digital and automated phone: " class="integer" data-key="fully-digital:volume:sum">2,484,025</td>
+<td data-title="USPS: " class="integer" data-key="assisted-digital:volume:sum">533,593</td>
+<td data-title="assisted (in-person): " class="integer" data-key="manual:volume:sum">10,234</td></tr>
+<tr><th data-title="3" scope="row" class="date" data-key="_start_at">January 2017</th>
+<td data-title="Digital and automated phone: " class="integer" data-key="fully-digital:volume:sum">3,117,505</td>
+<td data-title="USPS: " class="integer" data-key="assisted-digital:volume:sum">661,303</td>
+<td data-title="assisted (in-person): " class="integer" data-key="manual:volume:sum">14,049</td></tr>
+<tr><th data-title="4" scope="row" class="date" data-key="_start_at">February 2017</th>
+<td data-title="Digital and automated phone: " class="integer" data-key="fully-digital:volume:sum">3,479,897</td>
+<td data-title="USPS: " class="integer" data-key="assisted-digital:volume:sum">691,892</td>
+<td data-title="assisted (in-person): " class="integer" data-key="manual:volume:sum">16,354</td></tr>
+<tr><th data-title="5" scope="row" class="date" data-key="_start_at">March 2017</th>
+<td data-title="Digital and automated phone: " class="integer" data-key="fully-digital:volume:sum">3,995,982</td>
+<td data-title="USPS: " class="integer" data-key="assisted-digital:volume:sum">897,702</td>
+<td data-title="assisted (in-person): " class="integer" data-key="manual:volume:sum">14,443</td></tr>
+<tr><th data-title="6" scope="row" class="date" data-key="_start_at">April 2017</th>
+<td data-title="Digital and automated phone: " class="integer" data-key="fully-digital:volume:sum">3,042,946</td>
+<td data-title="USPS: " class="integer" data-key="assisted-digital:volume:sum">662,966</td>
+<td data-title="assisted (in-person): " class="integer" data-key="manual:volume:sum">8,338</td></tr></tbody></table></div></noscript>
+</div>
+</div>
+
+
+<div class="visualisation-table visuallyhidden "><table class=""><thead class=""><tr><th scope="col" data-key="_start_at" class="date" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=_start_at&amp;sortorder=descending" role="button">Date <span class="js-click-sort visuallyhidden">Click to sort</span></a></th>
+<th scope="col" data-key="fully-digital:volume:sum" class="integer" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=fully-digital:volume:sum&amp;sortorder=descending" role="button">Digital and automated phone <span class="js-click-sort visuallyhidden">Click to sort</span></a></th>
+<th scope="col" data-key="assisted-digital:volume:sum" class="integer" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=assisted-digital:volume:sum&amp;sortorder=descending" role="button">USPS <span class="js-click-sort visuallyhidden">Click to sort</span></a></th>
+<th scope="col" data-key="manual:volume:sum" class="integer" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=manual:volume:sum&amp;sortorder=descending" role="button">assisted (in-person) <span class="js-click-sort visuallyhidden">Click to sort</span></a></th></tr></thead><tbody><tr><th data-title="1" scope="row" class="date" data-key="_start_at">May 2016</th>
+<td data-title="Digital and automated phone: " class="integer" data-key="fully-digital:volume:sum">2,899,549</td>
+<td data-title="USPS: " class="integer" data-key="assisted-digital:volume:sum">746,629</td>
+<td data-title="assisted (in-person): " class="integer" data-key="manual:volume:sum">12,171</td></tr>
+<tr><th data-title="2" scope="row" class="date" data-key="_start_at">June 2016</th>
+<td data-title="Digital and automated phone: " class="integer" data-key="fully-digital:volume:sum">3,497,161</td>
+<td data-title="USPS: " class="integer" data-key="assisted-digital:volume:sum">916,044</td>
+<td data-title="assisted (in-person): " class="integer" data-key="manual:volume:sum">30,159</td></tr>
+<tr><th data-title="3" scope="row" class="date" data-key="_start_at">July 2016</th>
+<td data-title="Digital and automated phone: " class="integer" data-key="fully-digital:volume:sum">2,653,175</td>
+<td data-title="USPS: " class="integer" data-key="assisted-digital:volume:sum">703,305</td>
+<td data-title="assisted (in-person): " class="integer" data-key="manual:volume:sum">17,397</td></tr>
+<tr><th data-title="4" scope="row" class="date" data-key="_start_at">August 2016</th>
+<td data-title="Digital and automated phone: " class="integer" data-key="fully-digital:volume:sum">3,634,582</td>
+<td data-title="USPS: " class="integer" data-key="assisted-digital:volume:sum">889,259</td>
+<td data-title="assisted (in-person): " class="integer" data-key="manual:volume:sum">9,272</td></tr>
+<tr><th data-title="5" scope="row" class="date" data-key="_start_at">September 2016</th>
+<td data-title="Digital and automated phone: " class="integer" data-key="fully-digital:volume:sum">3,132,828</td>
+<td data-title="USPS: " class="integer" data-key="assisted-digital:volume:sum">822,357</td>
+<td data-title="assisted (in-person): " class="integer" data-key="manual:volume:sum">9,803</td></tr>
+<tr><th data-title="6" scope="row" class="date" data-key="_start_at">October 2016</th>
+<td data-title="Digital and automated phone: " class="integer" data-key="fully-digital:volume:sum">3,188,423</td>
+<td data-title="USPS: " class="integer" data-key="assisted-digital:volume:sum">739,602</td>
+<td data-title="assisted (in-person): " class="integer" data-key="manual:volume:sum">14,688</td></tr>
+<tr><th data-title="7" scope="row" class="date" data-key="_start_at">November 2016</th>
+<td data-title="Digital and automated phone: " class="integer" data-key="fully-digital:volume:sum">2,704,521</td>
+<td data-title="USPS: " class="integer" data-key="assisted-digital:volume:sum">641,294</td>
+<td data-title="assisted (in-person): " class="integer" data-key="manual:volume:sum">11,261</td></tr>
+<tr><th data-title="8" scope="row" class="date" data-key="_start_at">December 2016</th>
+<td data-title="Digital and automated phone: " class="integer" data-key="fully-digital:volume:sum">2,484,025</td>
+<td data-title="USPS: " class="integer" data-key="assisted-digital:volume:sum">533,593</td>
+<td data-title="assisted (in-person): " class="integer" data-key="manual:volume:sum">10,234</td></tr>
+<tr><th data-title="9" scope="row" class="date" data-key="_start_at">January 2017</th>
+<td data-title="Digital and automated phone: " class="integer" data-key="fully-digital:volume:sum">3,117,505</td>
+<td data-title="USPS: " class="integer" data-key="assisted-digital:volume:sum">661,303</td>
+<td data-title="assisted (in-person): " class="integer" data-key="manual:volume:sum">14,049</td></tr>
+<tr><th data-title="10" scope="row" class="date" data-key="_start_at">February 2017</th>
+<td data-title="Digital and automated phone: " class="integer" data-key="fully-digital:volume:sum">3,479,897</td>
+<td data-title="USPS: " class="integer" data-key="assisted-digital:volume:sum">691,892</td>
+<td data-title="assisted (in-person): " class="integer" data-key="manual:volume:sum">16,354</td></tr>
+<tr><th data-title="11" scope="row" class="date" data-key="_start_at">March 2017</th>
+<td data-title="Digital and automated phone: " class="integer" data-key="fully-digital:volume:sum">3,995,982</td>
+<td data-title="USPS: " class="integer" data-key="assisted-digital:volume:sum">897,702</td>
+<td data-title="assisted (in-person): " class="integer" data-key="manual:volume:sum">14,443</td></tr>
+<tr><th data-title="12" scope="row" class="date" data-key="_start_at">April 2017</th>
+<td data-title="Digital and automated phone: " class="integer" data-key="fully-digital:volume:sum">3,042,946</td>
+<td data-title="USPS: " class="integer" data-key="assisted-digital:volume:sum">662,966</td>
+<td data-title="assisted (in-person): " class="integer" data-key="manual:volume:sum">8,338</td></tr></tbody></table></div>
+
+
+<div class="visualisation-moreinfo">
+
+
+
+
+</div>
+
+</div>
+</section>
+<section aria-labelledby="vehicle-licensing-tax-disc-heading" role="region" id="vehicle-licensing-tax-disc" class="module completion_rate">
+
+
+
+    <h2 id="vehicle-licensing-tax-disc-heading"><a href="/performance/vehicle-tax/vehicle-licensing-tax-disc">Digital take-up</a></h2>
+
+
+
+
+
+
+  <p>Proportion of applications made using the digital service</p>
+
+
+<div class="visualisation">
+
+<div class="visualisation-inner"><div class="single-decker-graph">
+  <div class="impact-number volumetrics-completion-selected"><span class="summary">April 2017</span><strong>81.9%</strong></div>
+  <div class="graph timeseries-graph volumetrics-completion">
+    <noscript><div class="visualisation-table-fallback"><table class=""><thead class=""><tr><th scope="col" data-key="_start_at" class="date" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=_start_at&amp;sortorder=descending" role="button">Date <span class="js-click-sort visuallyhidden">Click to sort</span></a></th>
+<th scope="col" data-key="completion" class="percent" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=completion&amp;sortorder=descending" role="button">Completion percentage <span class="js-click-sort visuallyhidden">Click to sort</span></a></th></tr></thead><tbody><tr><th data-title="1" scope="row" class="date" data-key="_start_at">1 to 31 January 2017</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">82.2%</td></tr>
+<tr><th data-title="2" scope="row" class="date" data-key="_start_at">1 to 28 February 2017</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">83.1%</td></tr>
+<tr><th data-title="3" scope="row" class="date" data-key="_start_at">1 to 31 March 2017</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">81.4%</td></tr>
+<tr><th data-title="4" scope="row" class="date" data-key="_start_at">1 to 30 April 2017</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">81.9%</td></tr>
+<tr><th data-title="5" scope="row" class="date" data-key="_start_at">1 to 31 May 2017</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion"><abbr title="No data provided">—</abbr></td></tr>
+<tr><th data-title="6" scope="row" class="date" data-key="_start_at">1 to 30 June 2017</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion"><abbr title="No data provided">—</abbr></td></tr></tbody></table></div></noscript>
+  </div>
+</div>
+</div>
+
+
+<div class="visualisation-table visuallyhidden "><table class=""><thead class=""><tr><th scope="col" data-key="_start_at" class="date" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=_start_at&amp;sortorder=descending" role="button">Date <span class="js-click-sort visuallyhidden">Click to sort</span></a></th>
+<th scope="col" data-key="completion" class="percent" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=completion&amp;sortorder=descending" role="button">Completion percentage <span class="js-click-sort visuallyhidden">Click to sort</span></a></th></tr></thead><tbody><tr><th data-title="1" scope="row" class="date" data-key="_start_at">1 to 30 November 2013</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion"><abbr title="No data provided">—</abbr></td></tr>
+<tr><th data-title="2" scope="row" class="date" data-key="_start_at">1 to 31 December 2013</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">53.3%</td></tr>
+<tr><th data-title="3" scope="row" class="date" data-key="_start_at">1 to 31 January 2014</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">58.5%</td></tr>
+<tr><th data-title="4" scope="row" class="date" data-key="_start_at">1 to 28 February 2014</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">60.4%</td></tr>
+<tr><th data-title="5" scope="row" class="date" data-key="_start_at">1 to 31 March 2014</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">54%</td></tr>
+<tr><th data-title="6" scope="row" class="date" data-key="_start_at">1 to 30 April 2014</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">58.4%</td></tr>
+<tr><th data-title="7" scope="row" class="date" data-key="_start_at">1 to 31 May 2014</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">56.8%</td></tr>
+<tr><th data-title="8" scope="row" class="date" data-key="_start_at">1 to 30 June 2014</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">56.5%</td></tr>
+<tr><th data-title="9" scope="row" class="date" data-key="_start_at">1 to 31 July 2014</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">55.2%</td></tr>
+<tr><th data-title="10" scope="row" class="date" data-key="_start_at">1 to 31 August 2014</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">57.7%</td></tr>
+<tr><th data-title="11" scope="row" class="date" data-key="_start_at">1 to 30 September 2014</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">61%</td></tr>
+<tr><th data-title="12" scope="row" class="date" data-key="_start_at">1 to 31 October 2014</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">65.8%</td></tr>
+<tr><th data-title="13" scope="row" class="date" data-key="_start_at">1 to 30 November 2014</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">68.3%</td></tr>
+<tr><th data-title="14" scope="row" class="date" data-key="_start_at">1 to 31 December 2014</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">71%</td></tr>
+<tr><th data-title="15" scope="row" class="date" data-key="_start_at">1 to 31 January 2015</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">71.7%</td></tr>
+<tr><th data-title="16" scope="row" class="date" data-key="_start_at">1 to 28 February 2015</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">73.5%</td></tr>
+<tr><th data-title="17" scope="row" class="date" data-key="_start_at">1 to 31 March 2015</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">73.8%</td></tr>
+<tr><th data-title="18" scope="row" class="date" data-key="_start_at">1 to 30 April 2015</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">72.8%</td></tr>
+<tr><th data-title="19" scope="row" class="date" data-key="_start_at">1 to 31 May 2015</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">72.8%</td></tr>
+<tr><th data-title="20" scope="row" class="date" data-key="_start_at">1 to 30 June 2015</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">73.9%</td></tr>
+<tr><th data-title="21" scope="row" class="date" data-key="_start_at">1 to 31 July 2015</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">72.7%</td></tr>
+<tr><th data-title="22" scope="row" class="date" data-key="_start_at">1 to 31 August 2015</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">74.4%</td></tr>
+<tr><th data-title="23" scope="row" class="date" data-key="_start_at">1 to 30 September 2015</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">75.5%</td></tr>
+<tr><th data-title="24" scope="row" class="date" data-key="_start_at">1 to 31 October 2015</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">76.5%</td></tr>
+<tr><th data-title="25" scope="row" class="date" data-key="_start_at">1 to 30 November 2015</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">78%</td></tr>
+<tr><th data-title="26" scope="row" class="date" data-key="_start_at">1 to 31 December 2015</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">78.9%</td></tr>
+<tr><th data-title="27" scope="row" class="date" data-key="_start_at">1 to 31 January 2016</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">79%</td></tr>
+<tr><th data-title="28" scope="row" class="date" data-key="_start_at">1 to 29 February 2016</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">80%</td></tr>
+<tr><th data-title="29" scope="row" class="date" data-key="_start_at">1 to 31 March 2016</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">80%</td></tr>
+<tr><th data-title="30" scope="row" class="date" data-key="_start_at">1 to 30 April 2016</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">77.8%</td></tr>
+<tr><th data-title="31" scope="row" class="date" data-key="_start_at">1 to 31 May 2016</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">79.3%</td></tr>
+<tr><th data-title="32" scope="row" class="date" data-key="_start_at">1 to 30 June 2016</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">78.7%</td></tr>
+<tr><th data-title="33" scope="row" class="date" data-key="_start_at">1 to 31 July 2016</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">78.6%</td></tr>
+<tr><th data-title="34" scope="row" class="date" data-key="_start_at">1 to 31 August 2016</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">80.2%</td></tr>
+<tr><th data-title="35" scope="row" class="date" data-key="_start_at">1 to 30 September 2016</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">79%</td></tr>
+<tr><th data-title="36" scope="row" class="date" data-key="_start_at">1 to 31 October 2016</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">80.9%</td></tr>
+<tr><th data-title="37" scope="row" class="date" data-key="_start_at">1 to 30 November 2016</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">80.6%</td></tr>
+<tr><th data-title="38" scope="row" class="date" data-key="_start_at">1 to 31 December 2016</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">82%</td></tr>
+<tr><th data-title="39" scope="row" class="date" data-key="_start_at">1 to 31 January 2017</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">82.2%</td></tr>
+<tr><th data-title="40" scope="row" class="date" data-key="_start_at">1 to 28 February 2017</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">83.1%</td></tr>
+<tr><th data-title="41" scope="row" class="date" data-key="_start_at">1 to 31 March 2017</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">81.4%</td></tr>
+<tr><th data-title="42" scope="row" class="date" data-key="_start_at">1 to 30 April 2017</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion">81.9%</td></tr>
+<tr><th data-title="43" scope="row" class="date" data-key="_start_at">1 to 31 May 2017</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion"><abbr title="No data provided">—</abbr></td></tr>
+<tr><th data-title="44" scope="row" class="date" data-key="_start_at">1 to 30 June 2017</th>
+<td data-title="Completion percentage: " class="percent" data-key="completion"><abbr title="No data provided">—</abbr></td></tr></tbody></table></div>
+
+
+<div class="visualisation-moreinfo">
+
+
+
+
+</div>
+
+</div>
+</section>
+<section aria-labelledby="user-satisfaction-heading" role="region" id="user-satisfaction" class="module user_satisfaction_graph">
+
+
+
+    <h2 id="user-satisfaction-heading"><a href="/performance/vehicle-tax/user-satisfaction">User satisfaction</a></h2>
+
+
+
+
+
+
+  <p>Average of scores rating satisfaction from 100% (very satisfied) to 0% (very dissatisfied)</p>
+
+
+<div class="visualisation">
+
+<div class="visualisation-inner"><div class="single-decker-graph">
+  <div class="impact-number">
+    <div class="volumetrics-completion-selected"><span class="summary">22 to 28 May 2017</span><strong>93.2%</strong></div>
+    <p class="total-responses"></p>
+  </div>
+  <div class="graph timeseries-graph volumetrics-completion">
+      <noscript><div class="visualisation-table-fallback"><table class=""><thead class=""><tr><th scope="col" data-key="_start_at" class="date" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=_start_at&amp;sortorder=descending" role="button">Date <span class="js-click-sort visuallyhidden">Click to sort</span></a></th>
+<th scope="col" data-key="rating" class="percent" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=rating&amp;sortorder=descending" role="button">User satisfaction <span class="js-click-sort visuallyhidden">Click to sort</span></a></th>
+<th scope="col" data-key="rating_1:sum" class="integer" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=rating_1:sum&amp;sortorder=descending" role="button">Very dissatisfied <span class="js-click-sort visuallyhidden">Click to sort</span></a></th>
+<th scope="col" data-key="rating_2:sum" class="integer" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=rating_2:sum&amp;sortorder=descending" role="button">Dissatisfied <span class="js-click-sort visuallyhidden">Click to sort</span></a></th>
+<th scope="col" data-key="rating_3:sum" class="integer" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=rating_3:sum&amp;sortorder=descending" role="button">Neither satisfied or dissatisfied <span class="js-click-sort visuallyhidden">Click to sort</span></a></th>
+<th scope="col" data-key="rating_4:sum" class="integer" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=rating_4:sum&amp;sortorder=descending" role="button">Satisfied <span class="js-click-sort visuallyhidden">Click to sort</span></a></th>
+<th scope="col" data-key="rating_5:sum" class="integer" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=rating_5:sum&amp;sortorder=descending" role="button">Very satisfied <span class="js-click-sort visuallyhidden">Click to sort</span></a></th></tr></thead><tbody><tr><th data-title="1" scope="row" class="date" data-key="_start_at">17 April 2017</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">90.9%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,665</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">1,645</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">3,065</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">19,248</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">76,190</td></tr>
+<tr><th data-title="2" scope="row" class="date" data-key="_start_at">24 April 2017</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">90.1%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">3,615</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">3,106</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">6,105</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">35,381</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">131,738</td></tr>
+<tr><th data-title="3" scope="row" class="date" data-key="_start_at">1 May 2017</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">91.9%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">2,320</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">1,454</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">3,762</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">24,281</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">107,632</td></tr>
+<tr><th data-title="4" scope="row" class="date" data-key="_start_at">8 May 2017</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">93.9%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,146</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">552</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">2,057</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">16,157</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">88,598</td></tr>
+<tr><th data-title="5" scope="row" class="date" data-key="_start_at">15 May 2017</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">93.3%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,240</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">575</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">2,198</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">16,647</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">82,064</td></tr>
+<tr><th data-title="6" scope="row" class="date" data-key="_start_at">22 May 2017</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">93.2%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,177</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">583</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">2,490</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">19,581</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">91,013</td></tr></tbody></table></div></noscript>
+  </div>
+</div>
+</div>
+
+
+<div class="visualisation-table visuallyhidden "><table class=""><thead class=""><tr><th scope="col" data-key="_start_at" class="date" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=_start_at&amp;sortorder=descending" role="button">Date <span class="js-click-sort visuallyhidden">Click to sort</span></a></th>
+<th scope="col" data-key="rating" class="percent" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=rating&amp;sortorder=descending" role="button">User satisfaction <span class="js-click-sort visuallyhidden">Click to sort</span></a></th>
+<th scope="col" data-key="rating_1:sum" class="integer" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=rating_1:sum&amp;sortorder=descending" role="button">Very dissatisfied <span class="js-click-sort visuallyhidden">Click to sort</span></a></th>
+<th scope="col" data-key="rating_2:sum" class="integer" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=rating_2:sum&amp;sortorder=descending" role="button">Dissatisfied <span class="js-click-sort visuallyhidden">Click to sort</span></a></th>
+<th scope="col" data-key="rating_3:sum" class="integer" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=rating_3:sum&amp;sortorder=descending" role="button">Neither satisfied or dissatisfied <span class="js-click-sort visuallyhidden">Click to sort</span></a></th>
+<th scope="col" data-key="rating_4:sum" class="integer" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=rating_4:sum&amp;sortorder=descending" role="button">Satisfied <span class="js-click-sort visuallyhidden">Click to sort</span></a></th>
+<th scope="col" data-key="rating_5:sum" class="integer" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=rating_5:sum&amp;sortorder=descending" role="button">Very satisfied <span class="js-click-sort visuallyhidden">Click to sort</span></a></th></tr></thead><tbody><tr><th data-title="1" scope="row" class="date" data-key="_start_at">30 May 2016</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">92.2%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,908</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">1,097</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">4,165</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">28,704</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">117,440</td></tr>
+<tr><th data-title="2" scope="row" class="date" data-key="_start_at">6 June 2016</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">93.7%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,239</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">666</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">2,680</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">20,562</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">106,339</td></tr>
+<tr><th data-title="3" scope="row" class="date" data-key="_start_at">13 June 2016</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">93.3%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,063</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">536</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">2,058</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">15,383</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">75,867</td></tr>
+<tr><th data-title="4" scope="row" class="date" data-key="_start_at">20 June 2016</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">93%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,203</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">696</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">2,641</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">20,380</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">90,987</td></tr>
+<tr><th data-title="5" scope="row" class="date" data-key="_start_at">27 June 2016</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">92.8%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">2,179</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">1,094</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">4,682</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">35,655</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">153,567</td></tr>
+<tr><th data-title="6" scope="row" class="date" data-key="_start_at">4 July 2016</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">93.7%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,091</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">531</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">2,386</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">18,047</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">92,547</td></tr>
+<tr><th data-title="7" scope="row" class="date" data-key="_start_at">11 July 2016</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">93.5%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">801</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">429</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">1,688</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">13,530</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">65,542</td></tr>
+<tr><th data-title="8" scope="row" class="date" data-key="_start_at">18 July 2016</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">92.8%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,051</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">594</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">2,157</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">16,452</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">73,254</td></tr>
+<tr><th data-title="9" scope="row" class="date" data-key="_start_at">25 July 2016</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">92.9%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,709</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">914</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">3,829</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">30,354</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">131,726</td></tr>
+<tr><th data-title="10" scope="row" class="date" data-key="_start_at">1 August 2016</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">93.2%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,292</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">717</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">2,710</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">20,544</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">97,999</td></tr>
+<tr><th data-title="11" scope="row" class="date" data-key="_start_at">8 August 2016</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">93.9%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,193</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">638</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">2,584</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">22,040</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">113,545</td></tr>
+<tr><th data-title="12" scope="row" class="date" data-key="_start_at">15 August 2016</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">93.5%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,220</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">650</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">2,468</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">19,305</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">95,039</td></tr>
+<tr><th data-title="13" scope="row" class="date" data-key="_start_at">22 August 2016</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">93.8%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,388</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">603</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">2,754</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">22,502</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">115,892</td></tr>
+<tr><th data-title="14" scope="row" class="date" data-key="_start_at">29 August 2016</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">92.8%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">2,227</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">1,101</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">4,714</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">35,411</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">155,894</td></tr>
+<tr><th data-title="15" scope="row" class="date" data-key="_start_at">5 September 2016</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">94%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,150</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">615</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">2,504</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">20,081</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">106,303</td></tr>
+<tr><th data-title="16" scope="row" class="date" data-key="_start_at">12 September 2016</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">93.4%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">950</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">542</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">1,978</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">15,742</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">76,677</td></tr>
+<tr><th data-title="17" scope="row" class="date" data-key="_start_at">19 September 2016</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">92.7%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,269</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">935</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">2,822</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">20,956</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">91,774</td></tr>
+<tr><th data-title="18" scope="row" class="date" data-key="_start_at">26 September 2016</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">92.4%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">2,142</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">1,420</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">4,801</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">34,472</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">144,373</td></tr>
+<tr><th data-title="19" scope="row" class="date" data-key="_start_at">3 October 2016</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">93.4%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,094</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">715</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">2,380</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">17,650</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">87,317</td></tr>
+<tr><th data-title="20" scope="row" class="date" data-key="_start_at">10 October 2016</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">93.4%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">883</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">419</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">1,718</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">13,987</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">67,445</td></tr>
+<tr><th data-title="21" scope="row" class="date" data-key="_start_at">17 October 2016</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">93.1%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,059</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">594</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">2,024</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">15,929</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">74,334</td></tr>
+<tr><th data-title="22" scope="row" class="date" data-key="_start_at">24 October 2016</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">93.1%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,372</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">684</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">2,948</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">24,120</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">107,432</td></tr>
+<tr><th data-title="23" scope="row" class="date" data-key="_start_at">31 October 2016</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">92.9%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,565</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">742</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">3,126</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">23,315</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">105,043</td></tr>
+<tr><th data-title="24" scope="row" class="date" data-key="_start_at">7 November 2016</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">93.9%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">918</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">496</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">1,880</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">15,518</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">80,973</td></tr>
+<tr><th data-title="25" scope="row" class="date" data-key="_start_at">14 November 2016</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">93.2%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">898</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">395</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">1,712</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">12,941</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">61,499</td></tr>
+<tr><th data-title="26" scope="row" class="date" data-key="_start_at">21 November 2016</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">93.2%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">928</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">427</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">1,839</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">14,925</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">69,188</td></tr>
+<tr><th data-title="27" scope="row" class="date" data-key="_start_at">28 November 2016</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">92.9%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,599</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">685</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">3,223</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">24,000</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">108,208</td></tr>
+<tr><th data-title="28" scope="row" class="date" data-key="_start_at">5 December 2016</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">94.1%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,155</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">518</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">2,180</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">17,920</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">99,287</td></tr>
+<tr><th data-title="29" scope="row" class="date" data-key="_start_at">12 December 2016</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">93.5%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">789</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">360</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">1,440</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">11,462</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">57,646</td></tr>
+<tr><th data-title="30" scope="row" class="date" data-key="_start_at">19 December 2016</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">93.1%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">946</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">422</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">1,692</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">12,666</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">60,632</td></tr>
+<tr><th data-title="31" scope="row" class="date" data-key="_start_at">26 December 2016</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">93.2%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,281</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">610</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">2,930</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">22,419</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">101,356</td></tr>
+<tr><th data-title="32" scope="row" class="date" data-key="_start_at">2 January 2017</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">93.8%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,244</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">481</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">2,360</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">18,944</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">98,530</td></tr>
+<tr><th data-title="33" scope="row" class="date" data-key="_start_at">9 January 2017</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">93.7%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">838</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">380</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">1,624</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">13,253</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">67,481</td></tr>
+<tr><th data-title="34" scope="row" class="date" data-key="_start_at">16 January 2017</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">93.3%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">925</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">416</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">1,688</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">13,740</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">65,563</td></tr>
+<tr><th data-title="35" scope="row" class="date" data-key="_start_at">23 January 2017</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">93.2%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,175</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">547</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">2,387</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">19,158</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">88,439</td></tr>
+<tr><th data-title="36" scope="row" class="date" data-key="_start_at">30 January 2017</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">92.5%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,603</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">829</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">3,387</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">23,654</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">101,209</td></tr>
+<tr><th data-title="37" scope="row" class="date" data-key="_start_at">6 February 2017</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">94.5%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,435</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">672</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">2,900</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">24,775</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">144,868</td></tr>
+<tr><th data-title="38" scope="row" class="date" data-key="_start_at">13 February 2017</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">93.8%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,125</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">632</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">2,444</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">19,815</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">101,985</td></tr>
+<tr><th data-title="39" scope="row" class="date" data-key="_start_at">20 February 2017</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">93.4%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,569</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">901</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">3,393</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">29,223</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">136,443</td></tr>
+<tr><th data-title="40" scope="row" class="date" data-key="_start_at">27 February 2017</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">92.6%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,804</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">977</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">4,069</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">29,682</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">125,531</td></tr>
+<tr><th data-title="41" scope="row" class="date" data-key="_start_at">6 March 2017</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">75%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">0</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">1</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">0</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">2</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">2</td></tr>
+<tr><th data-title="42" scope="row" class="date" data-key="_start_at">13 March 2017</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">92.9%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">403</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">236</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">869</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">6,129</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">28,435</td></tr>
+<tr><th data-title="43" scope="row" class="date" data-key="_start_at">20 March 2017</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">93.4%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,228</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">524</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">2,277</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">18,982</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">90,316</td></tr>
+<tr><th data-title="44" scope="row" class="date" data-key="_start_at">27 March 2017</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">92.3%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">2,927</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">1,581</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">5,402</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">39,276</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">167,914</td></tr>
+<tr><th data-title="45" scope="row" class="date" data-key="_start_at">3 April 2017</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">92%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,708</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">1,218</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">2,824</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">17,589</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">82,193</td></tr>
+<tr><th data-title="46" scope="row" class="date" data-key="_start_at">10 April 2017</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">91.6%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,745</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">1,468</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">2,817</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">18,112</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">80,353</td></tr>
+<tr><th data-title="47" scope="row" class="date" data-key="_start_at">17 April 2017</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">90.9%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,665</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">1,645</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">3,065</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">19,248</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">76,190</td></tr>
+<tr><th data-title="48" scope="row" class="date" data-key="_start_at">24 April 2017</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">90.1%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">3,615</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">3,106</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">6,105</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">35,381</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">131,738</td></tr>
+<tr><th data-title="49" scope="row" class="date" data-key="_start_at">1 May 2017</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">91.9%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">2,320</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">1,454</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">3,762</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">24,281</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">107,632</td></tr>
+<tr><th data-title="50" scope="row" class="date" data-key="_start_at">8 May 2017</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">93.9%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,146</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">552</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">2,057</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">16,157</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">88,598</td></tr>
+<tr><th data-title="51" scope="row" class="date" data-key="_start_at">15 May 2017</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">93.3%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,240</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">575</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">2,198</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">16,647</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">82,064</td></tr>
+<tr><th data-title="52" scope="row" class="date" data-key="_start_at">22 May 2017</th>
+<td data-title="User satisfaction: " class="percent" data-key="rating">93.2%</td>
+<td data-title="Very dissatisfied: " class="integer" data-key="rating_1:sum">1,177</td>
+<td data-title="Dissatisfied: " class="integer" data-key="rating_2:sum">583</td>
+<td data-title="Neither satisfied or dissatisfied: " class="integer" data-key="rating_3:sum">2,490</td>
+<td data-title="Satisfied: " class="integer" data-key="rating_4:sum">19,581</td>
+<td data-title="Very satisfied: " class="integer" data-key="rating_5:sum">91,013</td></tr></tbody></table></div>
+
+
+<div class="visualisation-moreinfo">
+
+
+
+
+</div>
+
+</div>
+</section>
+<section aria-labelledby="service-availability-heading" role="region" id="service-availability" class="module tab">
+
+
+
+    <h2 id="service-availability-heading"><a href="/performance/vehicle-tax/service-availability">Service availability</a></h2>
+
+
+
+
+
+
+
+<div class="visualisation">
+
+<div class="visualisation-inner"><nav role="navigation">
+  <ol>
+    <li><a href="/performance/vehicle-tax/service-availability/service-availability-30-days">30 days</a></li>
+    <li><a href="/performance/vehicle-tax/service-availability/service-availability-24-hours">24 hours</a></li>
+  </ol>
+</nav>
+ <section aria-labelledby="service-availability-30-days-heading" role="region" id="service-availability-30-days" class="module availability">
+
+
+
+    <h2 id="service-availability-30-days-heading"><a href="/performance/vehicle-tax/service-availability/service-availability-30-days">30 days</a></h2>
+
+
+
+
+
+
+
+<div class="visualisation">
+
+<div class="visualisation-inner"><div class="single-decker-graph double-decker-graph">
+  <h3>Page load time</h3>
+  <p class="impact-number response-time"><span class="summary">1 June 2017</span><strong>0s</strong></p>
+  <div class="timeseries-graph response-time-graph">
+      <noscript><div class="visualisation-table-fallback"><table class=""><thead class=""><tr><th scope="col" data-key="_timestamp" class="date" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=_timestamp&amp;sortorder=descending" role="button">Date <span class="js-click-sort visuallyhidden">Click to sort</span></a></th>
+<th scope="col" data-key="avgresponse:mean" class="duration" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=avgresponse:mean&amp;sortorder=descending" role="button">Page load time <span class="js-click-sort visuallyhidden">Click to sort</span></a></th>
+<th scope="col" data-key="uptimeFraction" class="percent" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=uptimeFraction&amp;sortorder=descending" role="button">Uptime <span class="js-click-sort visuallyhidden">Click to sort</span></a></th></tr></thead><tbody><tr><th data-title="1" scope="row" class="date" data-key="_timestamp">27 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">500ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">99%</td></tr>
+<tr><th data-title="2" scope="row" class="date" data-key="_timestamp">28 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">98%</td></tr>
+<tr><th data-title="3" scope="row" class="date" data-key="_timestamp">29 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">94%</td></tr>
+<tr><th data-title="4" scope="row" class="date" data-key="_timestamp">30 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">95%</td></tr>
+<tr><th data-title="5" scope="row" class="date" data-key="_timestamp">31 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">95%</td></tr>
+<tr><th data-title="6" scope="row" class="date" data-key="_timestamp">1 June 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">95%</td></tr></tbody></table></div></noscript>
+  </div>
+
+  <h3 class="no-js">Uptime</h3>
+  <p class="no-js impact-number uptime"><span class="summary">1 June 2017</span><strong>0%</strong></p>
+  <div class="timeseries-graph uptime-graph">
+      <noscript><div class="visualisation-table-fallback"><table class=""></table></div></noscript>
+  </div>
+</div>
+</div>
+
+
+<div class="visualisation-table visuallyhidden "><table class=""><thead class=""><tr><th scope="col" data-key="_timestamp" class="date" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=_timestamp&amp;sortorder=descending" role="button">Date <span class="js-click-sort visuallyhidden">Click to sort</span></a></th>
+<th scope="col" data-key="avgresponse:mean" class="duration" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=avgresponse:mean&amp;sortorder=descending" role="button">Page load time <span class="js-click-sort visuallyhidden">Click to sort</span></a></th>
+<th scope="col" data-key="uptimeFraction" class="percent" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=uptimeFraction&amp;sortorder=descending" role="button">Uptime <span class="js-click-sort visuallyhidden">Click to sort</span></a></th></tr></thead><tbody><tr><th data-title="1" scope="row" class="date" data-key="_timestamp">3 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="2" scope="row" class="date" data-key="_timestamp">4 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="3" scope="row" class="date" data-key="_timestamp">5 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="4" scope="row" class="date" data-key="_timestamp">6 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="5" scope="row" class="date" data-key="_timestamp">7 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="6" scope="row" class="date" data-key="_timestamp">8 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="7" scope="row" class="date" data-key="_timestamp">9 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="8" scope="row" class="date" data-key="_timestamp">10 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="9" scope="row" class="date" data-key="_timestamp">11 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="10" scope="row" class="date" data-key="_timestamp">12 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="11" scope="row" class="date" data-key="_timestamp">13 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="12" scope="row" class="date" data-key="_timestamp">14 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="13" scope="row" class="date" data-key="_timestamp">15 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="14" scope="row" class="date" data-key="_timestamp">16 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="15" scope="row" class="date" data-key="_timestamp">17 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="16" scope="row" class="date" data-key="_timestamp">18 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="17" scope="row" class="date" data-key="_timestamp">19 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="18" scope="row" class="date" data-key="_timestamp">20 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="19" scope="row" class="date" data-key="_timestamp">21 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="20" scope="row" class="date" data-key="_timestamp">22 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="21" scope="row" class="date" data-key="_timestamp">23 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="22" scope="row" class="date" data-key="_timestamp">24 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="23" scope="row" class="date" data-key="_timestamp">25 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="24" scope="row" class="date" data-key="_timestamp">26 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="25" scope="row" class="date" data-key="_timestamp">27 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="26" scope="row" class="date" data-key="_timestamp">28 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="27" scope="row" class="date" data-key="_timestamp">29 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="28" scope="row" class="date" data-key="_timestamp">30 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="29" scope="row" class="date" data-key="_timestamp">31 May 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="30" scope="row" class="date" data-key="_timestamp">1 June 2017</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr></tbody></table></div>
+
+<div class="visualisation-moreinfo"></div>
+</div>
+</section>
+ <section aria-labelledby="service-availability-24-hours-heading" role="region" id="service-availability-24-hours" class="module availability">
+   <h2 id="service-availability-24-hours-heading"><a href="/performance/vehicle-tax/service-availability/service-availability-24-hours">24 hours</a></h2>
+   <div class="visualisation">
+     <div class="visualisation-inner"><div class="single-decker-graph double-decker-graph">
+       <h3>Page load time</h3>
+       <p class="impact-number response-time"><span class="summary">12:00pm, 2 June 2017</span><strong>0s</strong></p>
+       <div class="timeseries-graph response-time-graph">
+         <noscript>
+          <div class="visualisation-table-fallback">
+            <table class="">
+              <thead class="">
+                <tr>
+                  <th scope="col" data-key="_timestamp" class="time" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=_timestamp&amp;sortorder=descending" role="button">Time <span class="js-click-sort visuallyhidden">Click to sort</span></a></th>
+<th scope="col" data-key="avgresponse:mean" class="duration" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=avgresponse:mean&amp;sortorder=descending" role="button">Page load time <span class="js-click-sort visuallyhidden">Click to sort</span></a></th>
+<th scope="col" data-key="uptimeFraction" class="percent" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=uptimeFraction&amp;sortorder=descending" role="button">Uptime <span class="js-click-sort visuallyhidden">Click to sort</span></a></th></tr></thead><tbody><tr><th data-title="1" scope="row" class="time" data-key="_timestamp">7:00am</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="2" scope="row" class="time" data-key="_timestamp">8:00am</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="3" scope="row" class="time" data-key="_timestamp">9:00am</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="4" scope="row" class="time" data-key="_timestamp">10:00am</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="5" scope="row" class="time" data-key="_timestamp">11:00am</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="6" scope="row" class="time" data-key="_timestamp">12:00pm</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr></tbody></table></div></noscript>
+  </div>
+
+  <h3 class="no-js">Uptime</h3>
+  <p class="no-js impact-number uptime"><span class="summary">12:00pm, 2 June 2017</span><strong>0%</strong></p>
+  <div class="timeseries-graph uptime-graph">
+      <noscript><div class="visualisation-table-fallback"><table class=""></table></div></noscript>
+  </div>
+</div>
+</div>
+
+
+<div class="visualisation-table visuallyhidden "><table class=""><thead class=""><tr><th scope="col" data-key="_timestamp" class="time" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=_timestamp&amp;sortorder=descending" role="button">Time <span class="js-click-sort visuallyhidden">Click to sort</span></a></th>
+<th scope="col" data-key="avgresponse:mean" class="duration" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=avgresponse:mean&amp;sortorder=descending" role="button">Page load time <span class="js-click-sort visuallyhidden">Click to sort</span></a></th>
+<th scope="col" data-key="uptimeFraction" class="percent" aria-sort="" role="columnheader"><a class="js-sort" href="?sortby=uptimeFraction&amp;sortorder=descending" role="button">Uptime <span class="js-click-sort visuallyhidden">Click to sort</span></a></th></tr></thead><tbody><tr><th data-title="1" scope="row" class="time" data-key="_timestamp">1:00pm</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="2" scope="row" class="time" data-key="_timestamp">2:00pm</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="3" scope="row" class="time" data-key="_timestamp">3:00pm</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="4" scope="row" class="time" data-key="_timestamp">4:00pm</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="5" scope="row" class="time" data-key="_timestamp">5:00pm</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="6" scope="row" class="time" data-key="_timestamp">6:00pm</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="7" scope="row" class="time" data-key="_timestamp">7:00pm</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="8" scope="row" class="time" data-key="_timestamp">8:00pm</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="9" scope="row" class="time" data-key="_timestamp">9:00pm</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="10" scope="row" class="time" data-key="_timestamp">10:00pm</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="11" scope="row" class="time" data-key="_timestamp">11:00pm</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="12" scope="row" class="time" data-key="_timestamp">12:00am</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="13" scope="row" class="time" data-key="_timestamp">1:00am</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="14" scope="row" class="time" data-key="_timestamp">2:00am</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="15" scope="row" class="time" data-key="_timestamp">3:00am</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="16" scope="row" class="time" data-key="_timestamp">4:00am</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="17" scope="row" class="time" data-key="_timestamp">5:00am</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="18" scope="row" class="time" data-key="_timestamp">6:00am</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="19" scope="row" class="time" data-key="_timestamp">7:00am</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="20" scope="row" class="time" data-key="_timestamp">8:00am</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="21" scope="row" class="time" data-key="_timestamp">9:00am</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="22" scope="row" class="time" data-key="_timestamp">10:00am</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="23" scope="row" class="time" data-key="_timestamp">11:00am</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr>
+<tr><th data-title="24" scope="row" class="time" data-key="_timestamp">12:00pm</th>
+<td data-title="Page load time: " class="duration" data-key="avgresponse:mean">0ms</td>
+<td data-title="Uptime: " class="percent" data-key="uptimeFraction">0%</td></tr></tbody></table></div>
+<div class="visualisation-moreinfo">
+</div>
+
+</div>
+</section>
+</div>
+<div class="visualisation-moreinfo">
+</div>
+
+</div>
+</section>
+
+<footer>
+  <div class="row">
+    <p class="description">Data for applications for Veteran's Administration Health Benefits.</p>
+  </div>
+  <div class="row">
+    <div class="cols3 footer-left">
+      <aside class='related-pages' role='complementary'>
+        <div class="related-transaction" itemscope itemtype="http:&#x2F;&#x2F;schema.org&#x2F;GovernmentService">
+          <h3>Visit this service</h3>
+          <div class="button_wrapper">
+            <a itemprop="name" href="https://www.vets.gov/healthcare/apply/">
+            <button>Apply for VA Health Care</button></a>
+          </div>
+        </div>
+        <div class="improve-dashboard">
+          <h3>Improve this dashboard</h3>
+          <p>If you work on this service, we can help you add more data to this dashboard.</p>
+          <p>Email <a href="mailto:service-design-analytics@gsa.gov">service-design-analytics@gsa.gov</a></p>
+        </div>
+      </aside>
+    </div>
+    <div class="cols3 add3 footer-right">
+      <h3>Other department or public body:</h3>
+      <p class="footer-text">Veteran's Administration</p>
+
+      <h3>Sub-agency:</h3>
+      <p class="footer-text">Health and Benefits</p>
+
+      <h3>User:</h3>
+      <p class="footer-text">Individuals</p>
+
+      <!-- <h3>Service costs paid by:</h3>
+      <p class="footer-text">Fees and charges</p> -->
+
+
+      <h4>Other notes</h4>
+      <p>Lorum ipsum</p>
+
+    </div>
+
+  </div>
+
+</footer>
+
+
+  <!-- report_a_problem -->
+  <div class="report-a-problem-container">
+    <h2>Help us improve GOV.UK</h2>
+
+    <p>
+      The form on this page is for reporting problems with this dashboard.
+    </p>
+
+    <p>
+      If you've had problems with the service that this dashboard is providing data for, please
+      <a href="https:&#x2F;&#x2F;www.gov.uk&#x2F;vehicle-tax">send details to the team responsible for the service</a>.
+    </p>
+
+    <form accept-charset="UTF-8" action="/contact/govuk/problem_reports" method="post">
+      <div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"></div>
+      <input id="url" name="url" type="hidden" value="https://www.gov.uk/performance/vehicle-tax">
+      <p>Don't include personal or financial information, eg your National Insurance number or credit card details.</p>
+
+      <label for="what_doing">What you were doing</label>
+      <input id="what_doing" name="what_doing" type="text" />
+
+      <label for="what_wrong">What went wrong</label>
+      <input id="what_wrong" name="what_wrong" type="text" />
+
+      <div><button name="commit" type="submit" class="button">Send</button></div>
+
+    </form>
+  </div>
+  <!-- end report_a_problem -->
+  </main>
+</div>
+
+<footer class="usa-footer usa-footer-slim" role="contentinfo">
+  <div class="usa-footer-primary-section">
+    <div class="usa-grid-full">
+      <nav class="usa-footer-nav usa-width-two-thirds">
+        <ul class="usa-unstyled-list pull-right">
+          <!-- <li class="usa-width-one-fourth usa-footer-primary-content">
+            <a class="usa-footer-primary-link" href="javascript:void(0);">Primary link</a>
+          </li>
+          <li class="usa-width-one-fourth usa-footer-primary-content">
+            <a class="usa-footer-primary-link" href="javascript:void(0);">Primary link</a>
+          </li>
+          <li class="usa-width-one-fourth usa-footer-primary-content">
+            <a class="usa-footer-primary-link" href="javascript:void(0);">Primary link</a>
+          </li>
+          <li class="usa-width-one-fourth usa-footer-primary-content">
+            <a class="usa-footer-primary-link" href="javascript:void(0);">Primary link</a>
+          </li> -->
+        </ul>
+      </nav>
+      <div class="usa-width-one-third">
+        <div class="usa-footer-primary-content usa-footer-contact_info">
+          <p>(800) CALL-GOVT</p>
+        </div>
+        <div class="usa-footer-primary-content usa-footer-contact_info">
+          <a href="mailto:info@vets.gov">info@vets.gov</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="usa-footer-secondary_section">
+    <div class="usa-grid">
+      <div class="usa-footer-logo">
+        <img class="usa-footer-slim-logo-img" src="https://www.vets.gov/img/design/logo/logo-alt.png" alt="Logo image">
+        <h3 class="usa-footer-slim-logo-heading">U.S. Department of Veteran's Affairs</h3>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    <!--end footer-->
+
+    <div id="global-app-error" class="app-error hidden"></div>
+
+    <script src="https://assets.publishing.service.gov.uk/spotlight/javascripts/govuk-template.js?0.12.0" type="text/javascript"></script>
+
+    <script type="text/javascript">
+  GOVUK = GOVUK || {};
+  GOVUK.config = {"params":{},"status":200,"script":true,"business-model":"Fees and charges","customer-type":"Individuals","description":"Data for tax disc renewals, to prove payment of Vehicle Excise Duty (VED), also known as vehicle tax, car tax and road tax.","title":"VA Health Care Applications","tagline":"","agency":{"slug":"driver-and-vehicle-licensing-agency","abbr":"DVLA","title":"Driver and Vehicle Licensing Agency"},"modules":[{"info":[],"value-attribute":"number_of_transactions","description":"","module-type":"kpi","title":"Transactions per year","format":{"sigfigs":3,"magnitude":true,"type":"number","abbr":true},"modules":[],"classes":"cols3","slug":"transactions-per-year","data-source":{"data-group":"transactional-services","data-type":"summaries","query-params":{"sort_by":"_timestamp:descending","filter_by":["service_id:dft-tax-a-vehicle","type:seasonally-adjusted"]}}},{"info":[],"value-attribute":"total_cost","description":"","module-type":"kpi","title":"Total cost","format":{"sigfigs":3,"magnitude":true,"type":"currency","abbr":true},"modules":[],"classes":"cols3","slug":"total-cost","data-source":{"data-group":"transactional-services","data-type":"summaries","query-params":{"sort_by":"_timestamp:descending","filter_by":["service_id:dft-tax-a-vehicle","type:seasonally-adjusted"]}}},{"info":[],"value-attribute":"cost_per_transaction","description":"","module-type":"kpi","title":"Cost per transaction","format":{"pence":true,"type":"currency","abbr":true},"modules":[],"classes":"cols3","slug":"cost-per-transaction","data-source":{"data-group":"transactional-services","data-type":"summaries","query-params":{"sort_by":"_timestamp:descending","filter_by":["service_id:dft-tax-a-vehicle","type:seasonally-adjusted"]}}},{"info":["Source: Google Analytics"],"value-attribute":"count:sum","axis-period":"week","description":"Users who complete a transaction as a percentage of those who start","module-type":"completion_rate","title":"Completion rate (vehicle tax)","axes":{"y":[{"format":"percent","key":"completion","label":"Completion rate"}],"x":{"format":"date","key":["_start_at","_end_at"],"label":"Date"}},"modules":[],"numerator-matcher":"(complete)","denominator-matcher":"(start)","matching-attribute":"stage","slug":"completion-rate","data-source":{"data-group":"vehicle-licensing-tax-disc","data-type":"journey-by-goal","query-params":{"duration":52,"collect":["count:sum"],"group_by":["stage"],"period":"week"}}},{"info":["Data source: Google Analytics","Shows the estimated number of users currently on the GOV.UK start page for the service."],"data-source":{"data-group":"tax-disc","data-type":"realtime","query-params":{"limit":722,"sort_by":"_timestamp:descending"}},"module-type":"realtime","title":"Live service usage","modules":[],"slug":"live-service-usage","description":"Users currently on the GOV.UK start page for the service"},{"info":["Data source: DVLA database","Shows the number of successful applications to renew a tax disc, broken into \u003Cspan class='group0'\u003Edigital\u003C\u002Fspan\u003E, \u003Cspan class='group1'\u003EUSPS\u003C\u002Fspan\u003E and \u003Cspan class='group2'\u003Eassisted (in-person)\u003C\u002Fspan\u003E applications","Digital and automated phone: applications made online or using the automated telephone service","USPS: applications made at a USPS branch","assisted (in-person): applications made at the DVLA centre in Swansea; most of these users are recipients of Personal Independence Payment (PIP)."],"value-attribute":"volume:sum","description":"VA Health Care Applications per month broken into \u003Cspan class='group0'\u003Edigital\u003C\u002Fspan\u003E, \u003Cspan class='group1'\u003EUSPS\u003C\u002Fspan\u003E and \u003Cspan class='group2'\u003Eassisted (in-person)\u003C\u002Fspan\u003E applications","module-type":"grouped_timeseries","title":"Renewals breakdown","axes":{"y":[{"format":"integer","groupId":"fully-digital","label":"Digital and automated phone"},{"format":"integer","groupId":"assisted-digital","label":"USPS"},{"format":"integer","groupId":"manual","label":"assisted (in-person)"}]},"modules":[],"use_stack":true,"show-line-labels":true,"slug":"volumetrics","data-source":{"data-group":"vehicle-licensing","data-type":"volumetrics","query-params":{"collect":["volume:sum"],"group_by":["channel"],"period":"month","filter_by":["service:tax-disc"]}}},{"info":["Data source: DVLA database","\u003Ca href='\u002Fservice-manual\u002Fmeasurement\u002Fdigital-takeup' rel='external'\u003EDigital take-up\u003C\u002Fa\u003E measures the percentage of completed monthly applications that are made through a digital channel versus non-digital channels."],"value-attribute":"volume:sum","matching-attribute":"channel","description":"Proportion of renewals made using the digital service","module-type":"completion_rate","title":"Digital take-up","axes":{"y":[{"format":"percent","key":"completion","label":"Completion percentage"}],"x":{"format":"date","key":["_start_at","_end_at"],"label":"Date"}},"modules":[],"numerator-matcher":"^fully-digital$","denominator-matcher":"^fully-digital|assisted-digital|manual$","slug":"vehicle-licensing-tax-disc","data-source":{"data-group":"vehicle-licensing","data-type":"volumetrics","query-params":{"collect":["volume:sum"],"group_by":["channel"],"start_at":"2013-11-11T00:00:00Z","period":"month","filter_by":["service:tax-disc"]}}},{"info":["Source: DVLA"],"value-attribute":"count:sum","axis-period":"month","description":"Direct debit mandates as a percentage of total licence renewals","module-type":"completion_rate","title":"Direct debit take-up","axes":{"y":[{"format":"percent","key":"completion","label":"DD take-up"}],"x":{"format":"date","key":["_start_at","_end_at"],"label":"Date"}},"modules":[],"numerator-matcher":"(dd_total)","denominator-matcher":"licensing_all","matching-attribute":"type","slug":"direct-debit-take-up","data-source":{"data-group":"vehicle-licensing-tax-disc","data-type":"direct-debit","query-params":{"duration":12,"collect":["count:sum"],"group_by":["type"],"period":"month"}}},{"one-hundred-percent":true,"info":["Source: DVLA","Figures exclude automatic direct debit renewals."],"value-attribute":"count:sum","axis-period":"month","description":"Total direct debit mandates by channel","module-type":"grouped_timeseries","title":"Direct debit by channel","axes":{"y":[{"format":"percent","groupId":"dd_autorenewal","label":"Automatic renewals"},{"format":"percent","groupId":"dd_USPS","label":"USPS"},{"format":"percent","groupId":"dd_web","label":"Digital"}],"x":{"format":{"type":"date","format":"D MMM YYYY"},"key":["_start_at","_end_at"],"label":"Date"}},"modules":[],"use_stack":false,"show-line-labels":true,"slug":"direct-debit-by-channel","data-source":{"data-group":"vehicle-licensing-tax-disc","data-type":"direct-debit","query-params":{"duration":12,"collect":["count:sum"],"group_by":["type"],"period":"month"}}},{"trim":false,"info":["Data source: GOV.UK user feedback database","\u003Ca href='\u002Fservice-manual\u002Fmeasurement\u002Fuser-satisfaction' rel='external'\u003EUser satisfaction\u003C\u002Fa\u003E is measured by surveying users at the point of transaction completion. It is measured on a five-point scale, from most satisfied to least satisfied. The mean of these responses is converted to a percentage for display purposes.","This is a measure of the initial digital interface. It does not cover the end-to-end service that is outlined in the cost per transaction"],"value-attribute":"rating","axis-period":"month","description":"Average of scores rating satisfaction from 100% (very satisfied) to 0% (very dissatisfied)","module-type":"user_satisfaction_graph","title":"User satisfaction","modules":[],"slug":"user-satisfaction","data-source":{"data-group":"vehicle-tax","data-type":"customer-satisfaction","query-params":{"duration":52,"period":"week"}}},{"info":["Data source: Pingdom","Page load time measures the time taken for a sample page within the service to load.","\u003Ca href='\u002Fservice-manual\u002Foperations\u002Fuptime-and-availability' rel='external'\u003EUptime\u003C\u002Fa\u003E measures the percentage of time that the service was observed to be available."],"description":"","module-type":"tab","title":"Service availability","tabs":[{"description":"","module-type":"availability","title":"30 days","axes":{"x":{"format":"date","key":"_timestamp","label":"Date"}},"slug":"service-availability-30-days","data-source":{"data-group":"tax-disc","data-type":"monitoring","query-params":{"period":"day"}},"info":["Data source: Pingdom","Page load time measures the time taken for a sample page within the service to load.","\u003Ca href='\u002Fservice-manual\u002Foperations\u002Fuptime-and-availability' rel='external'\u003EUptime\u003C\u002Fa\u003E measures the percentage of time that the service was observed to be available."]},{"description":"","module-type":"availability","title":"24 hours","axes":{"x":{"format":"time","key":"_timestamp","label":"Time"}},"slug":"service-availability-24-hours","data-source":{"data-group":"tax-disc","data-type":"monitoring","query-params":{"period":"hour"}},"info":["Data source: Pingdom","Page load time measures the time taken for a sample page within the service to load.","\u003Ca href='\u002Fservice-manual\u002Foperations\u002Fuptime-and-availability' rel='external'\u003EUptime\u003C\u002Fa\u003E measures the percentage of time that the service was observed to be available."]}],"modules":[],"slug":"service-availability"}],"slug":"vehicle-tax","description-extra":"","costs":"","strapline":"Dashboard","published":true,"department":{"slug":"department-for-transport","abbr":"DFT","title":"Department for Transport"},"page-type":"dashboard","other-notes":"The volume and cost data presented here is subject to change as the method of calculation is refined. Until it has been through a formal assurance process, care should be taken in using the data to support analysis of DVLA business.","relatedPages":{"improve-dashboard-message":true,"transaction":{"url":"https:\u002F\u002Fwww.gov.uk\u002Fvehicle-tax","type":"transaction","title":"Tax your vehicle"},"other":[]},"dashboard-type":"high-volume-transaction","url":"\u002Fperformance\u002Fvehicle-tax","govukUrl":"https:\u002F\u002Fwww.gov.uk\u002Fperformance\u002Fvehicle-tax","requirePath":"\u002Fapp\u002F","assetPath":"https:\u002F\u002Fassets.publishing.service.gov.uk\u002Fspotlight\u002F","assetDigest":{"services.csv":"services-5f02bda2c7f39bf1ad0a729c79d840bb.csv","transaction-volumes.csv":"transaction-volumes-faa7118561ce9386a31a565b0da3e8f9.csv","Policy-Housing.pdf":"Policy-Housing-74ee84f968933609e499c9dc3e3a158d.pdf","Policy-Schools.pdf":"Policy-Schools-fa83e45c214658828d9a48882c2c2622.pdf","Policy–Major_Projects_Overview.pdf":"Policy–Major_Projects_Overview-bc9edbfa01211674002edd07dcbd591b.pdf","LFB.png":"LFB-bbe6cf706ab1299196bcf02c7b6965c0.png","LFB2.png":"LFB2-5bc1a1b6fa9743663f496f836e54f749.png","RiverL.png":"RiverL-f789bafd125c9bf607f3052385295851.png","RiverL2.png":"RiverL2-198f0581062b72ddb18e9730569cd1f6.png","apple-touch-icon-120x120.png":"apple-touch-icon-120x120-a3fcf4abddf96075da617690da840a50.png","apple-touch-icon-152x152.png":"apple-touch-icon-152x152-f61d2f6a2856dac798b883b2ddcc511d.png","apple-touch-icon-60x60.png":"apple-touch-icon-60x60-6f13967f17e127350bbef9008831d339.png","apple-touch-icon-76x76.png":"apple-touch-icon-76x76-70f7fa2529c4308d9347fd9effe7e5d3.png","completion-rate.svg":"completion-rate-cb4c53fa42c9439b97d45fcb0ab3d4de.svg","cost-per-transaction.svg":"cost-per-transaction-5c98a5daf7d7f4ebc64c87dd812b8887.svg","digital-takeup.svg":"digital-takeup-ab1f24f7004fe32d45846a2c4a82a720.svg","favicon.ico":"favicon-d089c8a052fa69c51d0231b781e62172.ico","gov.uk_logotype_crown.png":"gov.uk_logotype_crown-aab79cb6e98c76623f1d58c586a07699.png","gov.uk_logotype_crown_invert.png":"gov.uk_logotype_crown_invert-06a1b4720bd44fc78e7c0cb755c446f2.png","gov.uk_logotype_crown_invert_trans.png":"gov.uk_logotype_crown_invert_trans-1696477bd1e661bfc06541ecd12fe70a.png","opengraph-image.png":"opengraph-image-0c1ec782be4144293765074a62c6f9fe.png","prototypes-ambassador.jpg":"prototypes-ambassador-25b713bd6f769c08eb824fe9f9edc517.jpg","prototypes-govuk-performance-displays.jpg":"prototypes-govuk-performance-displays-d75678a130fc2e717d4438d20a046c2d.jpg","prototypes-govuk-travel-advice.jpg":"prototypes-govuk-travel-advice-8605c461844accc3bfb1e705ce9e548f.jpg","prototypes-solihull-dashboard.jpg":"prototypes-solihull-dashboard-cacfc4762947dc78294c3a64a76c94ee.jpg","prototypes-staff-in-government-buildings.jpg":"prototypes-staff-in-government-buildings-bb1696540ff256d785c0fb273ffbe288.jpg","prototypes-traffic-forecast.png":"prototypes-traffic-forecast-a6fdd91efebf4024c31f29b44409e601.png","prototypes_housing.jpg":"prototypes_housing-0537cf1b4d6c4a736697247953602c7f.jpg","prototypes_mpa.jpg":"prototypes_mpa-2d27f3e5dc16fa298c6819e7637dcf1c.jpg","prototypes_visitinguk.jpg":"prototypes_visitinguk-c0d07da8ffa8a12de9411254350b19eb.jpg","user-satisfaction.svg":"user-satisfaction-21df2492b9afe0af93d20a51a41d0371.svg","analytics.js":"analytics-cf0891e47d22c577d4ba61fba16a952a.js","govuk-template.js":"govuk-template-b70c06b73acbcb499ec32867aeda53b6.js","ie.js":"ie-27763cfc7a27a8866d6525ada7225147.js","spotlight-no-d3.js":"spotlight-no-d3-51b8158eb6a41a1f53714e717b030cd9.js","spotlight.js":"spotlight-8f931cf5a2c5ab12aa974a6c4251f655.js","webfont-debug.js":"webfont-debug-cee900851a9da72664b56c16b415a2aa.js","external-link-24x24.png":"external-link-24x24-eb05cf211b9644b2ebfc37b7b4464aa7.png","external-link-black-12x12.png":"external-link-black-12x12-6e48613b46186242974165516bc04a8e.png","external-link-black-24x24.png":"external-link-black-24x24-d23d1f2dc54636b46d9587c633a44559.png","external-link.png":"external-link-724196ebc7f41df5db548669fbb7f4bb.png","fonts-ie8.css":"fonts-ie8-ace80200717bfcb987863b0577347456.css","fonts.css":"fonts-0447c21fc1ccf2bd503f131fe055e682.css","NTA-Bold-20130221.eot":"NTA-Bold-20130221-69285bf03b33af2b3163c6149072e778.eot","NTA-Bold-20130221.woff":"NTA-Bold-20130221-7cb8a8de893937237efae70f2de8c99d.woff","NTA-Light-20130221.eot":"NTA-Light-20130221-5bec4546e936da26dc7a2f31efa3aa0e.eot","NTA-Light-20130221.woff":"NTA-Light-20130221-2a88163e5f2a196b7d328948e46d55d0.woff","NTATabularNumbers-Bold.eot":"NTATabularNumbers-Bold-d096f742c0d0cd05ccf95acc7e3d7dc2.eot","NTATabularNumbers-Bold.woff":"NTATabularNumbers-Bold-174436f795e83a73da864c50c11abdc4.woff","NTATabularNumbers-Light.eot":"NTATabularNumbers-Light-733c4eb4efff5cf37b73bcbf5ca0ceed.eot","NTATabularNumbers-Light.woff":"NTATabularNumbers-Light-011ba5f4b2ec767f61955d8cf664d2ac.woff","govuk-template-ie6.css":"govuk-template-ie6-b8acc482d0889ebb06ca37a71d7e7279.css","govuk-template-ie7.css":"govuk-template-ie7-bb49b0759ee8b92892327152ee97845e.css","govuk-template-ie8.css":"govuk-template-ie8-2aa4b3820a807778d81acf65c0780a67.css","govuk-template-print.css":"govuk-template-print-066f0b842c42c0b9f8abb98d6c2c7258.css","govuk-template.css":"govuk-template-99a15ca0716deeaa0ac6ddfa0b2d6ba5.css","close.png":"close-cfcf27d35e228540015bc47bdc6acc00.png","dropdown-arrow-small.png":"dropdown-arrow-small-8ec0cda9d40729e360d974e69c64ca45.png","govuk-crest-2x.png":"govuk-crest-2x-b3dbf98aec7e5e37f0dfd098cf3e8d2e.png","govuk-crest-ie.png":"govuk-crest-ie-510b890ab7bc1067ff6869e8654c6621.png","govuk-crest.png":"govuk-crest-412b3c2823860de3790d9ce9d9fb08cf.png","open-government-licence.png":"open-government-licence-7bf062ce601429609b83d805e055ca09.png","open-government-licence_2x.png":"open-government-licence_2x-8894b64879de0725f28d3a9ebbe061bd.png","separator-2x.png":"separator-2x-9b54fd84d4a8d512adae3ae95bb28165.png","separator.png":"separator-712418f6eec067c8974b021985a40bbb.png","spotlight.css":"spotlight-89feb63e64a18da8618f80a3bbe8ed3b.css"},"environment":"production","backdropUrl":"https:\u002F\u002Fbackdrop-read.publishing.service.gov.uk\u002Fdata\u002F{{ data-group }}\u002F{{ data-type }}","externalBackdropUrl":"https:\u002F\u002Fwww.performance.service.gov.uk\u002Fdata\u002F{{ data-group }}\u002F{{ data-type }}","clientRequiresCors":true,"bigScreenBaseURL":"\u002Fperformance","govukRequestId":"17341-1496409232.057-10.3.2.1-1198","hasBigScreenView":true};
+</script>
+
+
+
+<!--[if lt IE 9]><script src="https://assets.publishing.service.gov.uk/spotlight/javascripts/spotlight-no-d3-51b8158eb6a41a1f53714e717b030cd9.js" type="text/javascript"></script><![endif]-->
+<!--[if gt IE 8]><!--><script src="https://assets.publishing.service.gov.uk/spotlight/javascripts/spotlight-8f931cf5a2c5ab12aa974a6c4251f655.js" type="text/javascript"></script><!--<![endif]-->
+<script src="js/uswds.js" type="text/javascript"></script>
+
+  </body>
+</html>
