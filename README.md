@@ -23,9 +23,9 @@ one can then find ways to reduce friction and streamline the whole process.
 One of the core tools for service design is a journey map.
 This takes a human centered approach to document user experience across the full path or lifecycle of a service.
 
-![Service Map Example](/assets/images/1.png)
+[![Service Map Example](/assets/images/1.png)](https://www.blogs.va.gov/VAntage/wp-content/uploads/2019/03/VA-Patient-Experience-Journey-Map.pdf)
 
-The VA Patient Experience Journey Map represents a common set of moments Veterans experience before,
+The [VA Patient Experience Journey Map](https://www.blogs.va.gov/VAntage/wp-content/uploads/2019/03/VA-Patient-Experience-Journey-Map.pdf) represents a common set of moments Veterans experience before,
 during, and after an outpatient appointment.
 While this map does not represent what happens to every Veteran during every appointment,
 it is a good starting point to define the ideal patient experience
