@@ -13,7 +13,7 @@ with a multidisciplinary approach that combines human centered design,
 business process modeling, and automated data analysis.
 Originating in the 1990’s, service design is a relatively
 new design discipline that is still evolving,
-but _Designing for Service (Bloomsbury, 2017)_ provides a good definition:
+but [_Designing for Service (Bloomsbury, 2017)_](https://www.bloomsbury.com/us/designing-for-service-9781474250153/) provides a good definition:
 
 > "Service design is the activity of planning and organizing people, infrastructure, communication and material components of a service in order to improve its quality and the interaction between service provider and customers. It is now a growing field of both practice and academic research."
 
@@ -31,8 +31,6 @@ While this map does not represent what happens to every Veteran during every app
 it is a good starting point to define the ideal patient experience
 at VA and recognize high impact improvement opportunities.
 
----
-
 Journey maps and more in-depth user research can illuminate blind spots
 where the service provider is unaware of obstacles or inconveniences.
 They instill the service provider with more empathy for user experience.
@@ -44,13 +42,13 @@ service transactions are processed behind the scenes
 and how these business operations relate to user interactions in the journey map.
 The approach to mapping this pathway from the business perspective
 is usually referred to as “business process modelling.”
-This is a well established discipline with standards like Business Process Model & Notation
+This is a well established discipline with standards like [Business Process Model & Notation](http://www.bpmn.org/)
 used to understand the interlocking mechanics and decision flows within an enterprise.
 
 ![Service Map Prototype](/assets/images/2.png)
 
 By integrating the user-centric journey map with a backend business process model
-as a comprehensive service blueprint,
+as a comprehensive [service blueprint](http://www.servicedesigntools.org/tools/35),
 we can create a global view of operations to harmonize communication,
 instrument and display performance analytics, and set priorities for improvement across all stakeholders.
 
@@ -80,11 +78,11 @@ and the notion of a transactional “service” may not always bear the same typ
 
 Over the past few years the Government Digital Service (GDS) in the UK
 has experimented with a common indicator for customer satisfaction
-based on a simple question included across all services as part of the GDS Digital Service Standard.
+based on a simple question included across all services as part of the [GDS Digital Service Standard](https://www.gov.uk/service-manual/service-standard).
 However, this metric has been determined to be an unreliable indicator.
 In many cases, they have observed that users tend to mix their emotional need for a particular benefit
 with the transactional process used for requesting that benefit.
-Instead, GDS is looking to measure “failure demand”
+Instead, GDS is looking to measure [“failure demand”](https://dataingovernment.blog.gov.uk/2017/03/20/meeting-user-needs-how-we-receive-and-share-service-data/)
 or the demand generated based on the failure of a transaction or service to meet the user’s expectation.
 One common way to measure this is based on the volume of requests for help or calls
 to a contact center when associated with a specific screen or step in a larger transaction.
