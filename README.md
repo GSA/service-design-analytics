@@ -23,9 +23,9 @@ one can then find ways to reduce friction and streamline the whole process.
 One of the core tools for service design is a journey map.
 This takes a human centered approach to document user experience across the full path or lifecycle of a service.
 
-[![Service Map Example](/assets/images/1.png)](https://www.blogs.va.gov/VAntage/wp-content/uploads/2019/03/VA-Patient-Experience-Journey-Map.pdf)
+[![Service Map Example](/assets/images/1.png)](https://news.va.gov/wp-content/uploads/sites/3/2019/03/VA-Patient-Experience-Journey-Map.pdf)
 
-The [VA Patient Experience Journey Map](https://www.blogs.va.gov/VAntage/wp-content/uploads/2019/03/VA-Patient-Experience-Journey-Map.pdf) represents a common set of moments Veterans experience before,
+The [VA Patient Experience Journey Map](https://news.va.gov/wp-content/uploads/sites/3/2019/03/VA-Patient-Experience-Journey-Map.pdf) represents a common set of moments Veterans experience before,
 during, and after an outpatient appointment.
 While this map does not represent what happens to every Veteran during every appointment,
 it is a good starting point to define the ideal patient experience
@@ -42,13 +42,13 @@ service transactions are processed behind the scenes
 and how these business operations relate to user interactions in the journey map.
 The approach to mapping this pathway from the business perspective
 is usually referred to as “business process modelling.”
-This is a well established discipline with standards like [Business Process Model & Notation](http://www.bpmn.org/)
+This is a well established discipline with standards like [Business Process Model & Notation](https://www.bpmn.org/)
 used to understand the interlocking mechanics and decision flows within an enterprise.
 
 ![Service Map Prototype](/assets/images/2.png)
 
 By integrating the user-centric journey map with a backend business process model
-as a comprehensive [service blueprint](http://www.servicedesigntools.org/tools/35),
+as a comprehensive [service blueprint](https://servicedesigntools.org/tools/service-blueprint),
 we can create a global view of operations to harmonize communication,
 instrument and display performance analytics, and set priorities for improvement across all stakeholders.
 
