@@ -49,7 +49,7 @@ used to understand the interlocking mechanics and decision flows within an enter
 
 By integrating the user-centric journey map with a backend business process model
 as a comprehensive [service blueprint](http://www.servicedesigntools.org/tools/35),
-we can create a global view of operations to harmonize communication,
+we can create a global view of operations to harmonize internal communication, contextualize user research,
 instrument and display performance analytics, and set priorities for improvement across all stakeholders.
 
 ### Data without Context is Driving Blind
